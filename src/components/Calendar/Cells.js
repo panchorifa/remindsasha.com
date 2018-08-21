@@ -6,16 +6,17 @@ import * as actions from '../../actions'
 const CellDay = ({day, monthStart, selectedDate, selectDate}) => {
   const cloneDay = day
   const formattedDate = format(day, 'D')
+  const clazz = !isSameMonth(day, monthStart)
+              ? 'disabled'
+              : isSameDay(day, selectedDate)
+                    ? 'selected'
+                    : '';
   return   <div
-      className={`col cell ${
-        !isSameMonth(day, monthStart)
-          ? 'disabled'
-          : isSameDay(day, selectedDate) ? 'selected' : ''
-      }`}
+      className={`col cell ${clazz}`}
       key={day}
       onClick={() => selectDate(parse(cloneDay))}
     >
-      <span className='number'>{formattedDate}</span>
+      <span className='number today'>{formattedDate}</span>
       <span className='bg'>{formattedDate}</span>
     </div>
 }

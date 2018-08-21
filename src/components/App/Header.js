@@ -4,11 +4,8 @@ import {Link} from 'react-router-dom'
 class Header extends Component {
   render() {
     return <div className='header'>
-      <h3>Reminders</h3>
-      <ul>
-        <li><Link to='/'>Home</Link></li>
-        <li><Link to='/reminder'>Add Reminder</Link></li>
-      </ul>
+      <Link to='/' className='title'><img src="/dot.png"/><span>Reminders</span></Link>
+      <Link to='/reminder' className='btn'>Add Reminder</Link>
     </div>
   }
 }
