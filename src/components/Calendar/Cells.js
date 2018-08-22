@@ -23,8 +23,8 @@ const CellDay = ({day, monthStart, selectedDate, selectDate}) => {
 
 class Cells extends React.Component {
   render() {
-    const { currentMonth, selectedDate, selectDate } = this.props
-    const monthStart = startOfMonth(currentMonth)
+    const { month, selectedDate, selectDate } = this.props
+    const monthStart = startOfMonth(month)
 
     const rows = []
     let day = startOfWeek(monthStart)
@@ -45,11 +45,13 @@ class Cells extends React.Component {
   }
 }
 
-const mapStateToProps = store => {
-  return {
-    currentMonth: store.currentMonth,
-    selectedDate: store.selectedDate
-  }
-}
-
-export default connect(mapStateToProps, actions)(Cells)
+export default Cells
+// export default connect(actions)(Cells)
+// const mapStateToProps = store => {
+//   return {
+//     currentMonth: store.currentMonth,
+//     selectedDate: store.selectedDate
+//   }
+// }
+//
+// export default connect(mapStateToProps, actions)(Cells)

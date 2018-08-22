@@ -7,12 +7,28 @@ import {connect} from 'react-redux'
 import * as actions from '../../actions'
 
 class Calendar extends Component {
+  componentWillMount() {
+    const { loadMonthDate } = this.props
+    const { year, month } = this.props.match.params
+    loadMonthDate(year, month)
+  }
+
+  shouldComponentUpdate() {
+    console.log('should component update...')
+    const { selectedYear, selectedMonth, loadMonthDate } = this.props
+    const { year, month } = this.props.match.params
+    if(year !== selectedYear || month !== selectedMonth) {
+      loadMonthDate(year, month)
+      return true
+    }
+    return false
+  }
+
   render() {
-    const {currentMonth, nextMonth, prevMonth} =  this.props
-    const title = dateFns.format(currentMonth, 'MMMM YYYY')
+    const {selectedDate} = this.props
     return (
       <div className="calendar">
-        <Header title={title} next={nextMonth} prev={prevMonth}/>
+        <Header date={selectedDate}/>
         <Days/>
         <Cells/>
       </div>
@@ -22,7 +38,9 @@ class Calendar extends Component {
 
 const mapStateToProps = store => {
   return {
-    currentMonth: store.currentMonth
+    // selectedYear: store.selectedYear,
+    // selectedMonth: store.selectMonth,
+    selectedDate: store.selectedDate
   }
 }
 

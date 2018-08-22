@@ -1,13 +1,9 @@
-// import dateFns from 'date-fns';
+import dateFns from 'date-fns'
 
-export const nextMonth = () => (dispatch) => {
-  dispatch({type: 'NEXT_MONTH'})
+export const loadMonthDate = (year, month) => (dispatch) => {
+  dispatch({type: 'LOAD_MONTH', year: year, month: month})
 }
 
-export const prevMonth = () => (dispatch) => {
-  dispatch({type: 'PREV_MONTH'})
-}
-
-export const selectDate = day => (dispatch) => {
-  dispatch({type: 'SELECTED_DATE', day: day})
+export const selectDay = day => (dispatch) => {
+  dispatch({type: 'LOAD_DAY', day: day})
 }

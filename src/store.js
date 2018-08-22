@@ -10,7 +10,7 @@ const middleware = applyMiddleware(
   thunk
 )
 
-const configureStore = () => {
+const store = () => {
   // const middlewares = [thunk]
   // if(process.env.NODE_ENV !== 'production') {
   //   middlewares.push(createLogger())
@@ -22,4 +22,4 @@ const configureStore = () => {
   )
 }
 
-export default configureStore
+export default store
