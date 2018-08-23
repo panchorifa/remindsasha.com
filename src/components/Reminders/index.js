@@ -1,15 +1,23 @@
+import dateFns from 'date-fns'
 import React, {Component} from 'react'
-import Header from '../Calendar/Header'
 import {connect} from 'react-redux'
-import * as actions from '../../actions/day'
+import { withRouter } from 'react-router'
+// import { Link } from 'react-router-dom'
 
 class Reminders extends Component {
+  close() {
+    const month = dateFns.format(this.props.selectedDate, '/YYYY/M')
+    this.props.history.push(month)
+  }
+
   render() {
-    const {nextDay, prevDay} = this.props
-    return <div>
-      <Header title="Selected Date" next={nextDay} prev={prevDay}/>
-      reminders
-    </div>
+    return (
+      <div className="reminders">
+        <div className="header">
+          <a className="icon" onClick={this.close.bind(this)}>close</a>
+        </div>
+      </div>
+    )
   }
 }
 
@@ -19,4 +27,4 @@ const mapStateToProps = store => {
   }
 }
 
-export default connect(mapStateToProps, actions)(Reminders)
+export default withRouter(connect(mapStateToProps)(Reminders))

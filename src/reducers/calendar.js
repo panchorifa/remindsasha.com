@@ -52,21 +52,17 @@ const loadYear = (year, month) => {
 }
 
 const loadMonth = (year, month) => {
-  console.log(year)
-  console.log(month)
   if(year && isBetween(1969, 2100, parseInt(year, 10)) &&
      month && isBetween(0, 13, parseInt(month, 10))) {
-       console.log('------------->'+month-1)
     return month-1
   }
-  console.log('null month')
-  return null
+  return -1
 }
 
 const loadDay = (year, month, day) => {
   if(day && year && isBetween(1969, 2100, year) &&
      month && isBetween(0, 13, month) &&
-     isBetween(1, dateFns.getDaysInMonth(new Date(year, month, 1)), day)) {
+     isBetween(1, dateFns.getDaysInMonth(new Date(year, month)), day)) {
     return day
   }
   return null
@@ -75,16 +71,12 @@ const loadDay = (year, month, day) => {
 const loadDate = (year, month, day=null) => {
   const today = new Date()
   const y = loadYear(year) || dateFns.getYear(today)
-  const m = loadMonth(year, month) || dateFns.getMonth(today)
+  let m = loadMonth(year, month)
+  if(m === null) {
+    m = dateFns.getMonth(today)
+  }
   const d = day ? loadDay(day) : today.getDate()
-  console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
-  console.log(y)
-  console.log(m)
-  console.log(d)
   const x = new Date(y, m, d)
-  console.log(x)
-  console.log(dateFns.getYear(x))
-  console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
   return x
 }
 
@@ -92,24 +84,25 @@ const calendar = (state = {
     // selectedYear: null,
     // selectedMonth: null,
     // selectedDay: null,
+    name: 'Sasha',
     selectedDate: null
   }, action) => {
   switch (action.type) {
     case 'LOAD_MONTH':
       return {
         ...state,
-        // selectedYear: loadYear(action.year, action.month),
-        // selectedMonth: loadMonth(action.year, action.month),
-        // selectedDay: null,
         selectedDate: loadDate(action.year, action.month)
       }
-    // case 'LOAD_DAY':
-      // return {
-        // ...state,
-        // selectedYear: loadYear(action.year, action.year),
-        // selectedMonth: loadMonth(action.year, action.month),
-        // selectedDay: loadDay(action.year, action.month, action.day)
-      // }
+    case 'LOAD_DAY':
+      return {
+        ...state,
+        selectedDate: action.date
+      }
+    case 'CHANGE_NAME':
+      return {
+        ...state,
+        name: action.name
+      }
     default:
       return state;
   }

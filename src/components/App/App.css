@@ -31,7 +31,10 @@ body {
 /* VARIABLES */
 
 :root {
-  --main-color: #1a8fff;
+  /* --main-color: #1a8fff; */
+  --main-color: #7559a6;
+  --sec-color: #ed1a92;
+  --dark-color: #000;
   --text-color: #777;
   --text-color-light: #ccc;
   --border-color: #eee;
@@ -71,20 +74,50 @@ main {
   max-width: 50em;
 }
 
+.profile {
+  width: 400px;
+  margin: 3em auto;
+  text-align: center;
+  /* border: .25em solid var(--main-color); */
+  font-size: 2em;
+  background-color: #000;
+  padding: 1em 1em;
+  border-radius: .25em;
+}
+
+.profile .title {
+  font-weight: bold;
+  color: #fff;
+}
+
+textarea:focus, input:focus{
+  outline: none;
+}
+
+.profile input{
+  font-size: .5em;
+  font-style: italic;
+  padding: .5em;
+  width: 220px;
+  border-radius: .25em;
+  outline: none;
+  border: none;
+}
+
+
 .App .header {
   /* background-color: var(--main-color); */
   color: var(--main-color);
-  padding: .25em 0;
+  padding: 0;
   font-size: 1em;
-  height: 4em;
+  /* height: 4em; */
 }
 
-.App .header img {
-  height: 1.5em;
-  /* transform: scaleX(-1); */
-  color: red;
+.App .header .icon {
+  height: .85em;
+  color: var(--sec-color);
   /* line-height: 3em; */
-  margin: .15em .25em 0 0;
+  margin: .25em .25em 0 0;
   /* border: 1px solid red; */
   position: absolute;
 }
@@ -96,20 +129,34 @@ main {
   font-weight: 600;
   text-decoration: none;
   text-transform: uppercase;
-  letter-spacing: .1em;
+  letter-spacing: 1px;
   position: relative;
-  line-height: 2em;
+  /* line-height: 2.25em; */
   color: var(--main-color);
 }
+.App .header .top {
+  background-color: var(--border-color);
+  background-color: var(--main-color);
+  height: 2.5em;
+}
+.App .header .top .welcome {
+  float: right;
+  margin: .5em 1.5em;
+  font-style: italic;
+}
+.App .header .top .welcome a {
+  color: #fff;
+}
 .App .header .title span {
-  padding-left: 2em;
+  padding-left: 1.25em;
+  /* color: var(--dark-color); */
 }
 .App .header .btn {
   margin: 0;
   float: right;
-  background-color: var(--main-color);
+  background-color: var(--sec-color);
   color: #fff;
-  padding: .5em 1em;
+  padding: .25em 1em;
   text-decoration: none;
   font-size: 1em;
   margin: .5em 1em;
@@ -138,18 +185,20 @@ main {
 }
 
 .col-start {
-  justify-content: flex-start;
+  justify-content: flex-end;
   text-align: left;
 }
 
 .col-center {
   justify-content: center;
   text-align: center;
+  border: 1px solid red;
 }
 
 .col-end {
-  justify-content: flex-end;
-  text-align: right;
+  /* justify-content: flex-start; */
+  /* text-align: right; */
+  border: 1px solid red;
 }
 
 
@@ -173,9 +222,36 @@ main {
   height: 4em;
 }
 
+.xheader {
+  font-weight: 700;
+  font-size: 115%;
+  padding: 1.25em 0;
+  margin: 0 auto;
+  text-align: center;
+  border-bottom: 1px solid var(--border-color);
+  background-color: #fff;
+  color: var(--main-color);
+  height: 4em;
+}
+.xheader a {
+  text-decoration: none;
+  font-size: 2em;
+}
+.xdate {
+  display: inline-block;
+}
+
+.xtitle {
+  display: inline-block;
+  width: 20em;
+  text-align: center;
+}
+
 .calendar .header .icon {
   cursor: pointer;
   transition: .15s ease-out;
+  text-decoration: none;
+  color: #000;
 }
 
 .calendar .header .icon:hover {
@@ -184,13 +260,13 @@ main {
   color: var(--main-color);
 }
 
-.calendar .header .icon:first-of-type {
+/* .calendar .header .icon:first-of-type {
   margin-left: 1em;
 }
 
 .calendar .header .icon:last-of-type {
   margin-right: 1em;
-}
+} */
 
 .calendar .days {
   font-weight: 400;
@@ -221,7 +297,7 @@ main {
 
 .calendar .body .selected {
   border-left: 10px solid transparent;
-  border-image: linear-gradient(45deg, #1a8fff 0%,#53cbf1 40%);
+  border-image: linear-gradient(45deg, #ed1a92 0%, #f363b5 40%);
   border-image-slice: 1;
 }
 
@@ -289,4 +365,18 @@ main {
   flex-grow: 0;
   flex-basis: calc(100%/7);
   width: calc(100%/7);
+}
+
+
+.reminders {
+  border-top: 4px solid var(--main-color);
+  height: 100%;
+  min-height: 30em;
+}
+
+.reminders .header .icon{
+  position: absolute;
+  right: 0;
+  font-size: 2em;
+  cursor: pointer;
 }

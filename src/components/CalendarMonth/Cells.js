@@ -1,23 +1,22 @@
+import dateFns from 'date-fns'
 import {addDays, isSameMonth, isSameDay, parse, format, startOfWeek, endOfWeek, startOfMonth, endOfMonth} from 'date-fns'
 import React from 'react'
+import { withRouter } from 'react-router'
 import {connect} from 'react-redux'
 import * as actions from '../../actions'
 
-const CellDay = ({day, monthStart, selectedDate, selectDate}) => {
+const CellDay = ({day, today, monthStart, selectedDate, selectDay}) => {
   const cloneDay = day
-  // console.log(day)
-  // console.log(isSameDay(day, selectedDate))
-  // console.log('--------------------');
   const formattedDate = format(day, 'D')
   const clazz = !isSameMonth(day, monthStart)
               ? 'disabled'
-              : isSameDay(day, selectedDate)
+              : isSameDay(day, today)
                     ? 'selected'
                     : '';
   return   <div
       className={`col cell ${clazz}`}
       key={day}
-      onClick={() => selectDate(parse(cloneDay))}
+      onClick={() => selectDay(parse(cloneDay))}
     >
       <span className='number today'>{formattedDate}</span>
       <span className='bg'>{formattedDate}</span>
@@ -25,20 +24,28 @@ const CellDay = ({day, monthStart, selectedDate, selectDate}) => {
 }
 
 class Cells extends React.Component {
+
+  selectDay(date) {
+    const day = dateFns.format(date, '/YYYY/M/D')
+    this.props.history.push(day)
+  }
+
   render() {
-    const { selectedDate, selectDate } = this.props
+    const { selectedDate } = this.props
     const monthStart = startOfMonth(selectedDate)
 
     const rows = []
     let day = startOfWeek(monthStart)
     let days = []
+    const today=new Date()
     while (day <= endOfWeek(endOfMonth(monthStart))) {
       for (let i = 0; i < 7; i++) {
         days.push(
           <CellDay key={i} day={day}
+                today={today}
                 monthStart={monthStart}
                 selectedDate={selectedDate}
-                selectDate={selectDate}/>
+                selectDay={this.selectDay.bind(this)}/>
         )
         day = addDays(day, 1)
       }
@@ -51,11 +58,10 @@ class Cells extends React.Component {
   }
 }
 
-// export default connect(actions)(Cells)
 const mapStateToProps = store => {
   return {
     selectedDate: store.selectedDate
   }
 }
 
-export default connect(mapStateToProps, actions)(Cells)
+export default withRouter(connect(mapStateToProps, actions)(Cells))
