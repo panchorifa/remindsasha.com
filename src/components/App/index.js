@@ -7,9 +7,13 @@ class App extends Component {
 
   render() {
     return (
-      <div className='App'>
-        <Header/>
-        <Routes/>
+      <div className='app'>
+        <div className='header'>
+          <Header/>
+        </div>
+        <div className='content'>
+          <Routes/>
+        </div>
       </div>
     );
   }

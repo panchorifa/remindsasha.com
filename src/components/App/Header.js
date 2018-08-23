@@ -16,7 +16,6 @@ class Header extends Component {
         <Link to='/' className='title'>
           <div className='icon'>access_alarm</div><span>Reminders</span>
         </Link>
-        <Link to='/reminder' className='btn'>New Reminder</Link>
       </div>
     </div>
   }

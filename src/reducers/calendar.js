@@ -85,18 +85,21 @@ const calendar = (state = {
     // selectedMonth: null,
     // selectedDay: null,
     name: 'Sasha',
-    selectedDate: null
+    selectedDate: null,
+    mode: 'day'
   }, action) => {
   switch (action.type) {
     case 'LOAD_MONTH':
       return {
         ...state,
-        selectedDate: loadDate(action.year, action.month)
+        selectedDate: loadDate(action.year, action.month),
+        mode: 'month'
       }
     case 'LOAD_DAY':
       return {
         ...state,
-        selectedDate: action.date
+        selectedDate: action.date,
+        mode: 'day'
       }
     case 'CHANGE_NAME':
       return {

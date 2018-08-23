@@ -1,7 +1,11 @@
+html {
+  height: 100%;
+}
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  /* min-height: 100%; */
 }
 
 /* FONT IMPORTS */
@@ -50,13 +54,17 @@ body {
 }
 
 body {
-    font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
-    font-size: 1em;
-    font-weight: 300;
-    line-height: 1.5;
-    color: var(--text-color);
-    background: var(--bg-color);
-    position: relative;
+  font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  font-size: 1em;
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--text-color);
+  background: var(--sec-color);
+  /* position: relative; */
+  /* display: flex; */
+  /* align-content: stretch; */
+  /* flex-direction: row; */
+  /* justify-content: center; */
 }
 
 header {
@@ -67,12 +75,6 @@ header {
   background: var(--neutral-color);
 }
 
-main {
-  display: block;
-  margin: 0 auto;
-  /* margin-top: 5em; */
-  max-width: 50em;
-}
 
 .profile {
   width: 400px;
@@ -105,15 +107,24 @@ textarea:focus, input:focus{
 }
 
 
-.App .header {
-  /* background-color: var(--main-color); */
+.app {
+  justify-content: center;
+  margin: 0 auto;
+  /* border: 3px solid red; */
+  height: 100%;
+  /* background-color: var(--sec-color); */
+}
+
+.app .header {
+  background-color: #fff;
   color: var(--main-color);
   padding: 0;
   font-size: 1em;
+  border-bottom: 2px solid var(--border-color);
   /* height: 4em; */
 }
 
-.App .header .icon {
+.app .header .icon {
   height: .85em;
   color: var(--sec-color);
   /* line-height: 3em; */
@@ -122,7 +133,7 @@ textarea:focus, input:focus{
   position: absolute;
 }
 
-.App .header .title {
+.app .header .title {
   color: #fff;
   padding: 0 .5em;
   font-size: 2em;
@@ -134,24 +145,24 @@ textarea:focus, input:focus{
   /* line-height: 2.25em; */
   color: var(--main-color);
 }
-.App .header .top {
+.app .header .top {
   background-color: var(--border-color);
   background-color: var(--main-color);
   height: 2.5em;
 }
-.App .header .top .welcome {
+.app .header .top .welcome {
   float: right;
   margin: .5em 1.5em;
   font-style: italic;
 }
-.App .header .top .welcome a {
+.app .header .top .welcome a {
   color: #fff;
 }
-.App .header .title span {
+.app .header .title span {
   padding-left: 1.25em;
   /* color: var(--dark-color); */
 }
-.App .header .btn {
+.app .header .btn {
   margin: 0;
   float: right;
   background-color: var(--sec-color);
@@ -209,7 +220,7 @@ textarea:focus, input:focus{
   position: relative;
   width: 100%;
   background: var(--neutral-color);
-  border: 1px solid var(--border-color);
+  /* border: 1px solid var(--border-color); */
 }
 
 .calendar .header {
@@ -226,12 +237,13 @@ textarea:focus, input:focus{
   font-weight: 700;
   font-size: 115%;
   padding: 1.25em 0;
-  margin: 0 auto;
+  /* margin: 0 auto; */
   text-align: center;
   border-bottom: 1px solid var(--border-color);
   background-color: #fff;
   color: var(--main-color);
   height: 4em;
+  display: flex;
 }
 .xheader a {
   text-decoration: none;
@@ -242,9 +254,14 @@ textarea:focus, input:focus{
 }
 
 .xtitle {
-  display: inline-block;
-  width: 20em;
+  width: 10em;
+  flex-grow: 1;
   text-align: center;
+}
+
+.xtitle a {
+  font-size: 1.25em;
+  color: #888;
 }
 
 .calendar .header .icon {
@@ -368,15 +385,88 @@ textarea:focus, input:focus{
 }
 
 
-.reminders {
-  border-top: 4px solid var(--main-color);
-  height: 100%;
-  min-height: 30em;
-}
-
 .reminders .header .icon{
   position: absolute;
   right: 0;
   font-size: 2em;
   cursor: pointer;
+}
+
+
+.main {
+  display: flex;
+  /* align-content: stretch; */
+  background-color: #fff;
+  /* width: 980px; */
+}
+
+/* main {
+  display: block;
+  margin: 0 auto;
+  margin-top: 5em;
+  max-width: 50em;
+} */
+
+.main .month {
+  min-width: 35em;
+  flex-grow: 1;
+}
+
+.main .reminders {
+  flex-grow: 2;
+  background-color: #fff;
+  border-right: 2px solid var(--border-color);
+  padding: 1em 1.5em;
+  min-width: 30em;
+}
+
+.current-date {
+  font-weight: bold;
+}
+
+.dayreminders .list {
+  margin-top: 1em;
+  border-top: 1px solid var(--border-color);
+  padding-top: 1em;
+}
+
+.dayreminders .list .msg{
+  margin-bottom: 1em;
+}
+.dayreminders .list .msg b{
+  color: var(--sec-color);
+}
+
+.dayreminders .list .items .item{
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+  margin-bottom: 1em;
+  /* padding: 1em 1em 1em .5em; */
+  border-radius: .25em;
+  height: 4em;
+  display: flex;
+  flex-direction: row;
+}
+
+.dayreminders .list .items .item .content .title {
+  display: flex;
+}
+.dayreminders .list .items .item .time{
+  padding-top: .15em;
+}
+.dayreminders .list .items .item .icon{
+  margin-right: .25em;
+}
+.dayreminders .list .items .item .text {
+  margin: 1em;
+}
+
+
+
+.dayreminders .list .items .item .color{
+  height: 4em;
+  width: 2em;
+  border-top-left-radius: .25em;
+  border-bottom-left-radius: .25em;
+  background-color: var(--sec-color);
 }

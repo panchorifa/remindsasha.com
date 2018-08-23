@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import * as actions from '../../actions'
 
-class Profile extends React.Component {
+class Profile extends Component {
 
   handleKeyPress(fn, event) {
     if (event.key === 'Enter') {
