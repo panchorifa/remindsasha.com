@@ -5,6 +5,9 @@ import * as actions from '../../actions'
 
 const CellDay = ({day, monthStart, selectedDate, selectDate}) => {
   const cloneDay = day
+  // console.log(day)
+  // console.log(isSameDay(day, selectedDate))
+  // console.log('--------------------');
   const formattedDate = format(day, 'D')
   const clazz = !isSameMonth(day, monthStart)
               ? 'disabled'
@@ -23,8 +26,8 @@ const CellDay = ({day, monthStart, selectedDate, selectDate}) => {
 
 class Cells extends React.Component {
   render() {
-    const { month, selectedDate, selectDate } = this.props
-    const monthStart = startOfMonth(month)
+    const { selectedDate, selectDate } = this.props
+    const monthStart = startOfMonth(selectedDate)
 
     const rows = []
     let day = startOfWeek(monthStart)
@@ -32,7 +35,10 @@ class Cells extends React.Component {
     while (day <= endOfWeek(endOfMonth(monthStart))) {
       for (let i = 0; i < 7; i++) {
         days.push(
-          <CellDay key={i} day={day} monthStart={monthStart} selectedDate={selectedDate} selectDate={selectDate}/>
+          <CellDay key={i} day={day}
+                monthStart={monthStart}
+                selectedDate={selectedDate}
+                selectDate={selectDate}/>
         )
         day = addDays(day, 1)
       }
@@ -45,13 +51,11 @@ class Cells extends React.Component {
   }
 }
 
-export default Cells
 // export default connect(actions)(Cells)
-// const mapStateToProps = store => {
-//   return {
-//     currentMonth: store.currentMonth,
-//     selectedDate: store.selectedDate
-//   }
-// }
-//
-// export default connect(mapStateToProps, actions)(Cells)
+const mapStateToProps = store => {
+  return {
+    selectedDate: store.selectedDate
+  }
+}
+
+export default connect(mapStateToProps, actions)(Cells)

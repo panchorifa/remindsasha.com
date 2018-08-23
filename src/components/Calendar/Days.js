@@ -21,17 +21,16 @@ const Days = ({startDate}) => {
 
 class WeekDays extends React.Component {
   render() {
-    const { month } = this.props
-    const startDate = dateFns.startOfWeek(month)
+    const { selectedDate } = this.props
+    const startDate = dateFns.startOfWeek(selectedDate)
     return <Days startDate={startDate}/>
   }
 }
 
-export default WeekDays
-// const mapStateToProps = store => {
-//   return {
-//     currentMonth: store.currentMonth
-//   }
-// }
-//
-// export default connect(mapStateToProps)(WeekDays)
+const mapStateToProps = store => {
+  return {
+    selectedDate: store.selectedDate
+  }
+}
+
+export default connect(mapStateToProps)(WeekDays)
