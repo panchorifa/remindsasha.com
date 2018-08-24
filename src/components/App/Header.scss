@@ -1,0 +1,40 @@
+.header {
+  background-color: #fff;
+  color: var(--main-color);
+  padding: 0;
+  font-size: 1em;
+  border-bottom: 2px solid var(--border-color);
+
+  .icon {
+    height: .85em;
+    color: var(--sec-color);
+    margin: .25em .25em 0 0;
+    position: absolute;
+  }
+
+  .title {
+    color: #fff;
+    padding: 0 .5em;
+    font-size: 2em;
+    font-weight: 600;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    color: var(--main-color);
+    span {
+      padding-left: 1.25em;
+    }
+  }
+  .btn {
+    margin: 0;
+    float: right;
+    background-color: var(--sec-color);
+    color: #fff;
+    padding: .25em 1em;
+    text-decoration: none;
+    font-size: 1em;
+    margin: .5em 1em;
+    border-radius: .2em;
+  }
+}

@@ -4,8 +4,11 @@ import {connect} from 'react-redux'
 import * as actions from '../../actions'
 import CalendarMonth from '../CalendarMonth'
 import CalendarDay from '../CalendarDay'
+import ReminderForm from '../ReminderForm'
+import Modal from '../Modal'
+import './Dashboard.scss'
 
-class Calendar extends Component {
+class Dashboard extends Component {
   componentWillMount() {
     const { year, month, day } = this.props.match.params
     if(day) {
@@ -59,5 +62,4 @@ const mapStateToProps = store => {
   }
 }
 
-export default connect(mapStateToProps, actions)(Calendar)
-// export default Calendar
+export default connect(mapStateToProps, actions)(Dashboard)

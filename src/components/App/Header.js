@@ -1,17 +1,12 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
-import {connect} from 'react-redux'
+import Hi from './Hi'
+import './Header.scss'
 
 class Header extends Component {
-
   render() {
-    const {name} = this.props
     return <div className='header'>
-      <div className="top">
-        <div className="welcome">
-          <Link to="/profile">Hi, {name}</Link>
-        </div>
-      </div>
+      <Hi/>
       <div>
         <Link to='/' className='title'>
           <div className='icon'>access_alarm</div><span>Reminders</span>
@@ -21,10 +16,4 @@ class Header extends Component {
   }
 }
 
-const mapStateToProps = store => {
-  return {
-    name: store.name
-  }
-}
-
-export default connect(mapStateToProps)(Header)
+export default Header

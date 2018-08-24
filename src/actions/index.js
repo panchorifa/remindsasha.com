@@ -6,6 +6,10 @@ export const loadDayDate = (date) => dispatch => {
   dispatch({type: 'LOAD_DAY', date: date})
 }
 
-export const changeName = name => (dispatch) => {
+export const changeName = name => dispatch => {
   dispatch({type: 'CHANGE_NAME', name: name})
+}
+
+export const setModal = modal => dispatch => {
+  dispatch({type: 'SET_MODAL', modal: modal})
 }

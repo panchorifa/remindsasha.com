@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Header from './Header'
 import Routes from './Routes'
-import './App.css';
+import './App.scss';
 
 class App extends Component {
 
@@ -15,8 +15,8 @@ class App extends Component {
           <Routes/>
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App

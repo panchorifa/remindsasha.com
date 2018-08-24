@@ -1,0 +1,29 @@
+.dayreminders {
+  .current-date {
+    font-weight: bold;
+  }
+
+  .list {
+    margin-top: 1em;
+    border-top: 1px solid var(--border-color);
+    padding-top: 1em;
+    .msg {
+      margin-bottom: 1em;
+      b {
+        color: var(--sec-color);
+      }
+    }
+  }
+
+  .newreminderbtn {
+    background-color: var(--sec-color);
+    color: #fff;
+    border: 1px solid var(--border-color);
+    margin-bottom: 1em;
+    border-radius: .25em;
+    font-size: 1.4em;
+    text-align: center;
+    padding: .4em;
+    cursor: pointer;
+  }
+}

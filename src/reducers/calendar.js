@@ -86,7 +86,8 @@ const calendar = (state = {
     // selectedDay: null,
     name: 'Sasha',
     selectedDate: null,
-    mode: 'day'
+    mode: 'day',
+    modal: true
   }, action) => {
   switch (action.type) {
     case 'LOAD_MONTH':
@@ -105,6 +106,11 @@ const calendar = (state = {
       return {
         ...state,
         name: action.name
+      }
+    case 'SET_MODAL':
+      return {
+        ...state,
+        modal: action.modal
       }
     default:
       return state;

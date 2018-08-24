@@ -1,0 +1,13 @@
+.top {
+  background-color: var(--border-color);
+  background-color: var(--main-color);
+  height: 2.5em;
+  .welcome {
+    float: right;
+    margin: .5em 1.5em;
+    font-style: italic;
+    a {
+      color: #fff;
+    }
+  }
+}

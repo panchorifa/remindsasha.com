@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import { withRouter } from 'react-router'
 import CurrentDate from './CurrentDate'
 import Reminder from './Reminder'
+import './Reminders.scss'
 
 class Reminders extends Component {
   close() {
@@ -15,7 +16,8 @@ class Reminders extends Component {
     const today = new Date()
     const {name, selectedDate} = this.props
     const sameDay = dateFns.isSameDay(selectedDate, today)
-    let prefix = (dateFns.isPast(selectedDate) && !sameDay) ? "did" : "do"
+    const pastDay = dateFns.isPast(selectedDate) && !sameDay
+    let prefix = pastDay ? 'did' : 'do'
     let suffix = sameDay ? 'today' : 'on ' + dateFns.format(selectedDate, 'M/YY')
     if(dateFns.isSameDay(selectedDate, dateFns.addDays(today, 1))) {
       suffix = 'tomorrow'
@@ -24,7 +26,8 @@ class Reminders extends Component {
     }
     const total = reminders.length
     if(total > 0) {
-      return {__html: `${name}, you have <b>${total}</b> reminders ${suffix}.`}
+      prefix = pastDay ? 'had' : 'have'
+      return {__html: `${name}, you ${prefix} <b>${total}</b> reminders ${suffix}.`}
     }
     return {__html: `${name}, you ${prefix} not have any reminders ${suffix}.`}
   }
@@ -52,10 +55,7 @@ class Reminders extends Component {
   }
 
   render() {
-    const {name, selectedDate} = this.props
     const {year, day} = this.props.match.params
-    const today = new Date()
-    let msg = ''
     const reminders = [
       {
         color: 'blue',
@@ -69,13 +69,9 @@ class Reminders extends Component {
     const reminderItems = reminders.map((reminder) =>
       <Reminder settings={reminder}/>
     )
-    console.log(reminderItems)
-
-    if(!year || (year && day)) {
-      msg =  this.dailyMessage(reminders)
-    } else {
-      msg = this.monthlyMessage(reminders)
-    }
+    const msg = (!year || (year && day))
+        ? this.dailyMessage(reminders)
+        : this.monthlyMessage(reminders)
     return (
       <div className="dayreminders">
         <CurrentDate/>
@@ -84,6 +80,9 @@ class Reminders extends Component {
           <div className="items">
             {reminderItems}
           </div>
+        </div>
+        <div className="newreminderbtn">
+          New Reminder
         </div>
       </div>
     )
