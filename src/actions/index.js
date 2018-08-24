@@ -13,3 +13,7 @@ export const changeName = name => dispatch => {
 export const setModal = modal => dispatch => {
   dispatch({type: 'SET_MODAL', modal: modal})
 }
+
+export const setView = view => dispatch => {
+  dispatch({type: 'SET_VIEW', view: view})
+}

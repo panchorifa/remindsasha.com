@@ -16,7 +16,7 @@
   }
 
   .newreminderbtn {
-    background-color: var(--sec-color);
+    background-color: var(--main-color);
     color: #fff;
     border: 1px solid var(--border-color);
     margin-bottom: 1em;
@@ -25,5 +25,11 @@
     text-align: center;
     padding: .4em;
     cursor: pointer;
+    opacity: .4;
+    &:hover {
+      opacity: 1;
+      // background-color: var(--main-color);
+      // color: #fff;
+    }
   }
 }

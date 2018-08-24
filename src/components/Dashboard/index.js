@@ -2,8 +2,8 @@ import dateFns from 'date-fns'
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import * as actions from '../../actions'
-import CalendarMonth from '../CalendarMonth'
-import CalendarDay from '../CalendarDay'
+import Calendar from '../Calendar'
+import Reminders from '../Reminders'
 import ReminderForm from '../ReminderForm'
 import Modal from '../Modal'
 import './Dashboard.scss'
@@ -45,10 +45,10 @@ class Dashboard extends Component {
     return (
       <div className="main">
         <div className="reminders">
-          <CalendarDay/>
+          <Reminders/>
         </div>
-        <div className="month">
-          <CalendarMonth/>
+        <div className="calendar">
+          <Calendar/>
         </div>
       </div>
     )

@@ -4,6 +4,8 @@ import {connect} from 'react-redux'
 import { withRouter } from 'react-router'
 import CurrentDate from './CurrentDate'
 import Reminder from './Reminder'
+import ReminderForm from '../ReminderForm'
+import * as actions from '../../actions'
 import './Reminders.scss'
 
 class Reminders extends Component {
@@ -54,6 +56,11 @@ class Reminders extends Component {
     return {__html: `${name}, you ${prefix} not have any reminders ${suffix}.`}
   }
 
+  toggleView(view) {
+    const {setView} = this.props
+    setView(view)
+  }
+
   render() {
     const {year, day} = this.props.match.params
     const reminders = [
@@ -69,20 +76,24 @@ class Reminders extends Component {
     const reminderItems = reminders.map((reminder) =>
       <Reminder settings={reminder}/>
     )
+    const {view} = this.props
     const msg = (!year || (year && day))
         ? this.dailyMessage(reminders)
         : this.monthlyMessage(reminders)
     return (
       <div className="dayreminders">
         <CurrentDate/>
-        <div className="list">
+        <div style={{display: view !== 'list' ? 'none' : 'block'}}
+             className="list">
           <div className="msg" dangerouslySetInnerHTML={msg}/>
           <div className="items">
             {reminderItems}
           </div>
+          <div onClick={() => this.toggleView('form')} className="newreminderbtn">New Reminder</div>
         </div>
-        <div className="newreminderbtn">
-          New Reminder
+        <div style={{display: view === 'list' ? 'none' : 'block'}}
+             className="form">
+          <ReminderForm/>
         </div>
       </div>
     )
@@ -92,8 +103,9 @@ class Reminders extends Component {
 const mapStateToProps = store => {
   return {
     name: store.name,
-    selectedDate: store.selectedDate
+    selectedDate: store.selectedDate,
+    view: store.view
   }
 }
 
-export default withRouter(connect(mapStateToProps)(Reminders))
+export default withRouter(connect(mapStateToProps, actions)(Reminders))

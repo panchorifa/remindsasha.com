@@ -1,0 +1,92 @@
+.time-picker {
+  margin: 1em 0;
+  border-top: 1px solid var(--border-color);
+  padding: 1em;
+  color: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: .5em;
+
+  .showtime {
+    text-align: center;
+    .xtime {
+      width: 65px;
+      height: 65px;
+      display: inline-block;
+      font-size: 38px;
+      line-height: 65px;
+      background-color: var(--main-color);
+      border-radius: 3px;
+      text-align: center;
+    }
+
+      .separater {
+        display: inline-block;
+        font-size: 32px;
+        font-weight: bold;
+        color: var(--main-color);
+        width: 32px;
+        height: 65px;
+        line-height: 65px;
+        text-align: center;
+      }
+    }
+
+    .time-text {
+      position: relative;
+      left: -10px;
+      font-size: 15px;
+      text-align: center;
+      color: var(--main-color);
+      margin-top: 7px;
+      margin-bottom: 10px;
+    }
+
+    .sliders {
+      padding: 0 10px;
+      display: flex;
+      justify-content: space-between;
+      .slider {
+        flex-grow: 1;
+        margin: 0 1em;
+      }
+    }
+
+  }
+
+  .u-slider-time {
+    position: relative;
+    display: inline-block;
+    background-color: #ddd;
+    border-radius: 3px;
+    height: 1.2em;
+    width: 100%;
+    cursor: pointer;
+
+    .value {
+      position: absolute;
+      background-color: var(--main-color);
+      border-radius: 3px;
+      top: 0;
+      height: 100%;
+    }
+
+    .handle {
+      position: absolute;
+      width: 1em;
+      height: 1em;
+
+      &:after {
+        position: relative;
+        display: block;
+        content: '';
+        top: -.1em;
+        left: -.5em;
+        width: 1em;
+        height: 1em;
+        background-color: #fff;
+        border: 3px solid var(--main-color);
+        border-radius: 50%;
+        cursor: pointer;
+      }
+    }
+  }

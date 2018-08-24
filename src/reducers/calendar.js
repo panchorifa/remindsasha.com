@@ -87,6 +87,7 @@ const calendar = (state = {
     name: 'Sasha',
     selectedDate: null,
     mode: 'day',
+    view: 'list',
     modal: true
   }, action) => {
   switch (action.type) {
@@ -94,13 +95,15 @@ const calendar = (state = {
       return {
         ...state,
         selectedDate: loadDate(action.year, action.month),
-        mode: 'month'
+        mode: 'month',
+        view: 'list'
       }
     case 'LOAD_DAY':
       return {
         ...state,
         selectedDate: action.date,
-        mode: 'day'
+        mode: 'day',
+        view: 'list'
       }
     case 'CHANGE_NAME':
       return {
@@ -111,6 +114,11 @@ const calendar = (state = {
       return {
         ...state,
         modal: action.modal
+      }
+    case 'SET_VIEW':
+      return {
+        ...state,
+        view: action.view
       }
     default:
       return state;

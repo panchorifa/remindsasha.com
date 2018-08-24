@@ -4,26 +4,51 @@
   width: 100%;
   background: var(--neutral-color);
 
-  .header {
+  .cal-header {
     font-weight: 700;
-    font-size: 115%;
+    font-size: .85em;
     padding: 1.25em 0;
+    text-align: center;
     border-bottom: 1px solid var(--border-color);
     background-color: #fff;
-    color: #444;
+    color: #888;
     height: 4em;
+    display: flex;
+    a {
+      text-decoration: none;
+      font-size: 2em;
+      color: #888;
+      &:hover {
+        color: var(--main-color);
+      }
+    }
+
+    .date {
+      display: inline-block;
+    }
+
+    .cal-title {
+      width: 10em;
+      flex-grow: 1;
+      text-align: center;
+      a {
+        font-size: 1.25em;
+        color: #888;
+        &:hover {
+          color: var(--main-color);
+        }
+      }
+    }
 
     .icon {
       cursor: pointer;
       transition: .15s ease-out;
       text-decoration: none;
-      color: #000;
-    }
-
-    .icon:hover {
-      transform: scale(1.75);
-      transition: .25s ease-out;
-      color: var(--main-color);
+      &:hover {
+        transform: scale(1.75);
+        transition: .25s ease-out;
+        color: var(--main-color);
+      }
     }
   }
 
@@ -50,8 +75,14 @@
       transition: 0.25s ease-out;
 
       .today {
-        padding: .5em;
-        border-radius: 1em;
+        position: absolute;
+        font-size: 82.5%;
+        line-height: 1;
+        top: .5em;
+        left: .5em;
+        font-weight: 700;
+        text-align: center;
+        color: var(--sec-color)
       }
 
       .number {
@@ -60,10 +91,8 @@
         line-height: 1;
         top: .5em;
         left: .5em;
-        width: 2em;
-        font-weight: 700;
+        font-weight: 500;
         text-align: center;
-        background-color: white;
         color: #aaa;
       }
 
@@ -95,10 +124,8 @@
       transition: .5s ease-in;
     }
 
-    .selected {
-      border-left: 10px solid transparent;
-      border-image: linear-gradient(45deg, #ed1a92 0%, #f363b5 40%);
-      border-image-slice: 1;
+    .today {
+      color: var(--sec-color);
     }
 
     .row {

@@ -1,4 +1,5 @@
 import React from 'react'
+import './ColorPicker.scss'
 
 class ColorPicker extends React.Component {
   state = {
@@ -16,7 +17,7 @@ class ColorPicker extends React.Component {
       <div className='color'
         onClick={() => this.handleClick(color)}
         style={{
-          opacity: selectedColor === color ? 1 : .3,
+          opacity: selectedColor === color ? 1 : .1,
           backgroundColor: color}}/>
     )
     return (

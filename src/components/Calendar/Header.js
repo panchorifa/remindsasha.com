@@ -19,12 +19,12 @@ class Header extends Component {
     const title = dateFns.format(selectedDate, 'MMMM YYYY')
     const monthLink = dateFns.format(selectedDate, '/YYYY/M')
     return (
-      <div className="xheader">
-        <div className="xdate"><Link to={prevMonth(selectedDate)} className="icon">chevron_left</Link></div>
-        <div className="xtitle">
+      <div className="cal-header">
+        <div className="date"><Link to={prevMonth(selectedDate)} className="icon">chevron_left</Link></div>
+        <div className="cal-title">
           <Link to={monthLink}><span>{title}</span></Link>
         </div>
-        <div className="xdate"><Link to={nextMonth(selectedDate)} className="icon">chevron_right</Link></div>
+        <div className="date"><Link to={nextMonth(selectedDate)} className="icon">chevron_right</Link></div>
       </div>
     );
   }
