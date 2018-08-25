@@ -1,12 +1,18 @@
 .dayreminders {
   .current-date {
     font-weight: bold;
+    cursor: pointer;
+    &:hover {
+      color: var(--main-color);
+    }
+  }
+
+  hr {
+    margin: 1em 0;
+    border: 1px solid var(--border-color);
   }
 
   .list {
-    margin-top: 1em;
-    border-top: 1px solid var(--border-color);
-    padding-top: 1em;
     .msg {
       margin-bottom: 1em;
       b {

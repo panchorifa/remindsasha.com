@@ -5,12 +5,6 @@ import dateFns from 'date-fns'
 
 const fakeDatabase = {
   reminders: {
-    '8/2018': {
-      '8/17/2018': {
-        '8/17/2018 4:00': {color: 'purple', text: 'Hello Vato', time: ''},
-        '8/17/2018 6:00': {color: 'pink', text: 'Hello Ese', time: ''}
-      }
-    }
   }
 }
 
@@ -18,48 +12,87 @@ const delay = (ms) =>
   new Promise(resolve => setTimeout(resolve, ms))
 
 const monthFmt = (date) => dateFns.format(date, 'M/YYYY')
-const dayFmt = (date) => dateFns.format(date, 'M/D/YYYY')
-const timeFmt = (date) => dateFns.format(date, 'M/D/YYYY HH:MM')
+const dayFmt = (date) => dateFns.format(date, 'D')
+const timeFmt = (date) => dateFns.format(date, 'HH:mm')
 
-const monthlyReminders = (date) => fakeDatabase.reminders[monthFmt(date)]
+const monthlyReminders = date => {
+  const month = monthFmt(date)
+  const reminders = fakeDatabase.reminders
+  if(!(month in reminders)) {
+    reminders[month] = {}
+  }
+  return reminders[month]
+}
 
 export const fetchReminders = (date, filter) =>
   delay(500).then(() => {
     const reminders = monthlyReminders(date)
-    if(reminders) {
+    if(Object.keys(reminders).length > 0) {
       switch (filter) {
         case 'month':
-          return reminders;
+          const all = []
+          if(Object.keys(reminders).length>0) {
+            const z = Object.values(reminders)
+            for(const entry of z) {
+              if(Object.keys(entry).length>0) {
+                all.push(Object.values(entry)[0])
+              }
+            }
+          }
+          // TODO clean this sorting thing
+          return all.sort((a,b) => a.date - b.date)
         case 'day':
           const day = dayFmt(date)
-          return reminders.day ? reminders.day : []
+          return day in reminders ? Object.values(reminders[day]).sort((a, b) => a.date - b.date) : []
         default:
           throw new Error(`Unknown filter: ${filter}`);
       }
     }
     return []
-  }
+  })
+
 
 export const addReminder = ({color, text, date}) =>
   delay(500).then(() => {
     const reminder = { color, text, date }
     const reminders = monthlyReminders(date)
     const day = dayFmt(date)
-    const time = timeFmt(time)
-    if(reminders.day && reminders.day.time) {
-      throw Error('Already exists')
-    } else if(reminders.day) {
-      reminders.day.time = reminder
+    const time = timeFmt(date)
+    if(!(day in reminders)) {
+      reminders[day] = {}
+    }
+    if(time in reminders[day]) {
+      throw new Error('Reminder already exists!')
+      // Promise.reject(new Error('Reminder already exists!'))
+    } else {
+      reminders[day][time] = reminder
     }
     return reminder
   })
 
-export const deleteReminder = (date) =>
+export const deleteReminder = date =>
   delay(500).then(() => {
     const reminders = monthlyReminders(date)
     const day = dayFmt(date)
-    if(reminders.day) {
+    if(day in reminders) {
       const time = timeFmt(date)
-      delete reminders.day[time]
+      delete reminders[day][time]
     }
+  })
+
+export const reset = date =>
+  delay(500).then(() => {
+    fakeDatabase.reminders = {}
+  })
+
+export const fetchBubbles = date =>
+  delay(500).then(() => {
+    const reminders = monthlyReminders(date)
+    const all = {}
+    const days = Object.keys(reminders)
+    //TODO simplify
+    for(const day of days) {
+      all[day] = Object.values(reminders[day]).map(r => r['color'])
+    }
+    return all
   })

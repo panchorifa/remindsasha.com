@@ -4,13 +4,20 @@ import React from 'react'
 import { withRouter } from 'react-router'
 import {connect} from 'react-redux'
 import * as actions from '../../actions'
+import './Cells.scss'
 
-const CellDay = ({day, today, monthStart, selectedDate, selectDay}) => {
+const CellDay = ({day, today, monthStart, selectedDate, selectDay, colors}) => {
   const cloneDay = day
   const formattedDate = format(day, 'D')
   const sameDay = isSameDay(day, today)
+  const selected = isSameDay(day, selectedDate)
   const clazz = !isSameMonth(day, monthStart)
-        ? 'disabled' : sameDay ? 'selected' : ''
+        ? 'disabled' : selected ? 'selected' : ''
+
+  const bubbles = colors.map(color =>
+    <div key={color} className="bubble" style={{backgroundColor: color, opacity: selected ? 1 : .2}}></div>
+  )
+  console.log(bubbles)
   return   <div
       className={`col cell ${clazz}`}
       key={day}
@@ -18,10 +25,20 @@ const CellDay = ({day, today, monthStart, selectedDate, selectDay}) => {
     >
       <span className={sameDay ? 'today' : 'number'}>{formattedDate}</span>
       <span className='bg'>{formattedDate}</span>
+      <div className="bubbles">
+        {bubbles}
+      </div>
     </div>
 }
 
 class Cells extends React.Component {
+
+  componentDidUpdate(prevProps) {
+    const {selectedDate, fetchMonthBubbles} = this.props
+    if(!isSameMonth(prevProps.selectedDate, selectedDate)) {
+      fetchMonthBubbles(format(selectedDate))
+    }
+  }
 
   selectDay(date) {
     const day = dateFns.format(date, '/YYYY/M/D')
@@ -29,17 +46,18 @@ class Cells extends React.Component {
   }
 
   render() {
-    const { selectedDate } = this.props
+    const { selectedDate, monthColors } = this.props
     const monthStart = startOfMonth(selectedDate)
-
     const rows = []
     let day = startOfWeek(monthStart)
     let days = []
     const today=new Date()
     while (day <= endOfWeek(endOfMonth(monthStart))) {
       for (let i = 0; i < 7; i++) {
+        const dayColors = monthColors[format(day, 'D')] || []
         days.push(
           <CellDay key={i} day={day}
+                colors={dayColors}
                 today={today}
                 monthStart={monthStart}
                 selectedDate={selectedDate}
@@ -58,7 +76,8 @@ class Cells extends React.Component {
 
 const mapStateToProps = store => {
   return {
-    selectedDate: store.selectedDate
+    selectedDate: store.selectedDate,
+    monthColors: store.monthColors
   }
 }
 

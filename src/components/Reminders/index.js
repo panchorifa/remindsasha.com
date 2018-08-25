@@ -9,6 +9,22 @@ import * as actions from '../../actions'
 import './Reminders.scss'
 
 class Reminders extends Component {
+
+  componentDidMount() {
+    this.fetchData()
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.selectedDate !== prevProps.selectedDate) {
+      this.fetchData()
+    }
+  }
+
+  fetchData() {
+    const { selectedDate, mode, fetchReminders } = this.props
+    fetchReminders(selectedDate, mode);
+  }
+
   close() {
     const month = dateFns.format(this.props.selectedDate, '/YYYY/M')
     this.props.history.push(month)
@@ -20,7 +36,7 @@ class Reminders extends Component {
     const sameDay = dateFns.isSameDay(selectedDate, today)
     const pastDay = dateFns.isPast(selectedDate) && !sameDay
     let prefix = pastDay ? 'did' : 'do'
-    let suffix = sameDay ? 'today' : 'on ' + dateFns.format(selectedDate, 'M/YY')
+    let suffix = sameDay ? '<b>today</b>' : 'on ' + dateFns.format(selectedDate, 'M/D/YYYY')
     if(dateFns.isSameDay(selectedDate, dateFns.addDays(today, 1))) {
       suffix = 'tomorrow'
     }else if(dateFns.isSameDay(selectedDate, dateFns.subDays(today, 1))) {
@@ -29,7 +45,8 @@ class Reminders extends Component {
     const total = reminders.length
     if(total > 0) {
       prefix = pastDay ? 'had' : 'have'
-      return {__html: `${name}, you ${prefix} <b>${total}</b> reminders ${suffix}.`}
+      const r = total > 1 ? 'reminders' : 'reminder'
+      return {__html: `${name}, you ${prefix} <b>${total}</b> ${r} ${suffix}.`}
     }
     return {__html: `${name}, you ${prefix} not have any reminders ${suffix}.`}
   }
@@ -51,7 +68,8 @@ class Reminders extends Component {
     }
     const total = reminders.length
     if(total > 0) {
-      return {__html: `${name}, you have <b>${total}</b> reminders ${suffix}.`}
+      const r = total > 1 ? 'reminders' : 'reminder'
+      return {__html: `${name}, you have <b>${total}</b> ${r} ${suffix}.`}
     }
     return {__html: `${name}, you ${prefix} not have any reminders ${suffix}.`}
   }
@@ -63,33 +81,35 @@ class Reminders extends Component {
 
   render() {
     const {year, day} = this.props.match.params
-    const reminders = [
-      {
-        color: 'blue',
-        text:'This is a reminder with a maximum of 50 chars what'
-      },
-      {
-        color: 'orange',
-        text:'This is a reminder with a maximum of 50 chars what'
-      }
-    ]
-    const reminderItems = reminders.map((reminder) =>
-      <Reminder settings={reminder}/>
+    const {selectedDate, reminders, mode, view, fetching} = this.props
+    const reminderItems = reminders.map(reminder =>
+      <Reminder settings={reminder} key={reminder.date}/>
     )
-    const {view} = this.props
+
     const msg = (!year || (year && day))
         ? this.dailyMessage(reminders)
         : this.monthlyMessage(reminders)
+
+    // TODO refactor and reuse
+    const today = new Date()
+    const sameDay = dateFns.isSameDay(selectedDate, today)
+    const pastDate = dateFns.isPast(selectedDate) && !sameDay
+
     return (
       <div className="dayreminders">
         <CurrentDate/>
-        <div style={{display: view !== 'list' ? 'none' : 'block'}}
+        <hr/>
+        <div className="loading" style={{display: fetching ?  'block' : 'none'}}>
+          Loading...
+        </div>
+        <div style={{display: (fetching || view !== 'list') ? 'none' : 'block'}}
              className="list">
           <div className="msg" dangerouslySetInnerHTML={msg}/>
           <div className="items">
             {reminderItems}
           </div>
-          <div onClick={() => this.toggleView('form')} className="newreminderbtn">New Reminder</div>
+          <div style={{display: (pastDate || mode === 'month') ? 'none' : 'block'}}
+            onClick={() => this.toggleView('form')} className="newreminderbtn">New Reminder</div>
         </div>
         <div style={{display: view === 'list' ? 'none' : 'block'}}
              className="form">
@@ -104,7 +124,10 @@ const mapStateToProps = store => {
   return {
     name: store.name,
     selectedDate: store.selectedDate,
-    view: store.view
+    mode: store.mode,
+    view: store.view,
+    reminders: store.reminders,
+    fetching: store.fetchingReminders
   }
 }
 

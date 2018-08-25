@@ -81,14 +81,15 @@ const loadDate = (year, month, day=null) => {
 }
 
 const calendar = (state = {
-    // selectedYear: null,
-    // selectedMonth: null,
-    // selectedDay: null,
     name: 'Sasha',
     selectedDate: null,
-    mode: 'day',
-    view: 'list',
-    modal: true
+    mode: 'day', //day or month
+    view: 'list', // list or form
+    modal: true,
+    fetchingReminders: false,
+    fetchingBubbles: false,
+    reminders: [],
+    monthColors: {}
   }, action) => {
   switch (action.type) {
     case 'LOAD_MONTH':
@@ -119,6 +120,44 @@ const calendar = (state = {
       return {
         ...state,
         view: action.view
+      }
+    case 'FETCHING_REMINDERS':
+      return {
+        ...state,
+        fetchingReminders: true
+      }
+    case 'FETCHING_BUBBLES':
+      return {
+        ...state,
+        fetchingBubbles: true
+      }
+    case 'FETCH_REMINDERS_SUCCESS':
+      return {
+        ...state,
+        reminders: action.response,
+        fetchingReminders: false
+      }
+    case 'FETCH_REMINDERS_FAILURE':
+      return {
+        ...state,
+        reminders: [],
+        fetchingReminders: false
+      }
+    case 'FETCH_BUBBLES_SUCCESS':
+      return {
+        ...state,
+        monthColors: action.response,
+        fetchingBubbles: false
+      }
+    case 'ADD_REMINDER_SUCCESS':
+      return {
+        ...state,
+        view: 'list'
+      }
+    case 'ADD_REMINDER_FAILURE':
+      return {
+        ...state,
+        view: 'form'
       }
     default:
       return state;

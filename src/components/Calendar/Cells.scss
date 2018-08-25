@@ -1,0 +1,77 @@
+.cell {
+  position: relative;
+  height: 5em;
+  border-right: 1px solid var(--border-color);
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--neutral-color);
+  transition: 0.25s ease-out;
+
+  .today {
+    position: absolute;
+    font-size: 82.5%;
+    line-height: 1;
+    top: .5em;
+    left: .5em;
+    font-weight: 700;
+    text-align: center;
+    color: var(--sec-color)
+  }
+
+  .number {
+    position: absolute;
+    font-size: 82.5%;
+    line-height: 1;
+    top: .5em;
+    left: .5em;
+    font-weight: 500;
+    text-align: center;
+    color: #aaa;
+  }
+
+  .bg {
+    font-weight: 700;
+    line-height: 1;
+    color: var(--main-color);
+    opacity: 0;
+    font-size: 7em;
+    position: absolute;
+    bottom: -.1em;
+    right: -.05em;
+    transition: .25s ease-out;
+    letter-spacing: -.07em;
+  }
+}
+// TODO clean this up
+.cell:last-child {
+  border-right: none;
+}
+
+.cell:hover {
+  background: var(--bg-color);
+  transition: 0.5s ease-out;
+}
+
+.cell:hover .bg, .calendar .body .selected .bg  {
+  opacity: 0.05;
+  transition: .5s ease-in;
+}
+
+.bubbles {
+  height: 100%;
+  padding: 1.5em 0 0 .35em;
+  overflow: hidden;
+  line-height: .1em;
+  .bubble {
+    display: inline-block;
+    line-height: .1em;
+    height: .5em;
+    width: .75em;
+    margin: 0 .35em .3em 0;
+    border-radius: 1em;
+  }
+}
+
+.disabled .bubbles {
+  display: none;
+}

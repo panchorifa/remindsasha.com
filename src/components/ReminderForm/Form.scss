@@ -16,13 +16,16 @@
     text-align: center;
     padding: .4em;
     cursor: pointer;
-    opacity: .4;
+    // opacity: .4;
     .icon {
       margin-top: -.2em;
       margin-right: .5em;
     }
     &:hover {
-      opacity: 1;
+      // opacity: 1;
     }
+  }
+  .btn .disabled {
+    opacity: .3;
   }
 }

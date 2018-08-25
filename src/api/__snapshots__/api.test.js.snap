@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`api fetch daily reminders 1`] = `
+Array [
+  Object {
+    "color": "pink",
+    "date": 2018-02-01T17:30:00.000Z,
+    "text": "Math Homework",
+  },
+]
+`;
+
+exports[`api fetch monthly reminders 1`] = `
+Array [
+  Object {
+    "color": "pink",
+    "date": 2018-02-01T17:30:00.000Z,
+    "text": "Math Homework",
+  },
+]
+`;
+
+exports[`api get bubbles 1`] = `
+Object {
+  "1": Array [
+    "pink",
+    "purple",
+  ],
+}
+`;

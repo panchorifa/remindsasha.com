@@ -4,8 +4,6 @@ import {connect} from 'react-redux'
 import * as actions from '../../actions'
 import Calendar from '../Calendar'
 import Reminders from '../Reminders'
-import ReminderForm from '../ReminderForm'
-import Modal from '../Modal'
 import './Dashboard.scss'
 
 class Dashboard extends Component {
