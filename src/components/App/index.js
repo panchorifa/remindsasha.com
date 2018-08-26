@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Header from './Header'
+import Footer from './Footer'
 import Routes from './Routes'
 import './App.scss';
 
@@ -14,6 +15,7 @@ class App extends Component {
         <div className='content'>
           <Routes/>
         </div>
+        <Footer/>
       </div>
     )
   }

@@ -3,7 +3,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import TimePicker from './TimePicker'
 import ColorPicker from './ColorPicker'
-import * as actions from '../../actions'
+import * as actions from '../../../actions'
 import './Form.scss'
 
 const colors = ['blue', 'red', 'yellow', 'pink',
@@ -23,21 +23,11 @@ class ReminderForm extends React.Component {
       const {color, date} = this.state
       const {selectedDate, addReminder, fetchReminders, fetchMonthBubbles} = this.props
       let xdate = selectedDate
-      console.log(getHours(date))
       xdate=setHours(xdate, getHours(date))
-      console.log(xdate)
       xdate=setMinutes(xdate, getMinutes(date))
       const reminder = {text: this.inputNode.value, color, date: xdate}
-      console.log('--------------------------------')
-      console.log('--------------------------------')
-      console.log(date)
-      console.log(reminder)
-      console.log('--------------------------------')
-      console.log('--------------------------------')
-
 
       addReminder(reminder).then(() => {
-        console.log('success')
         fetchReminders(selectedDate, 'day')
         fetchMonthBubbles(selectedDate)
         this.inputNode.value = ''
@@ -71,10 +61,6 @@ class ReminderForm extends React.Component {
 
   changeHours = pos => {
     const date = setHours(this.state.date, pos.x)
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>>')
-    console.log(pos.x)
-    console.log(date)
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>>')
     this.setState({date: date})
   }
 

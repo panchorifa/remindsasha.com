@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import { withRouter } from 'react-router'
 import CurrentDate from './CurrentDate'
 import Reminder from './Reminder'
-import ReminderForm from '../ReminderForm'
+import ReminderForm from './ReminderForm'
 import * as actions from '../../actions'
 import './Reminders.scss'
 
@@ -25,17 +25,6 @@ class Reminders extends Component {
     const { selectedDate, fetchReminders } = this.props
 
     const mode = (year && month && !day) ? 'month' : 'day'
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>')
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>')
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>')
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>')
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>')
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>')
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>')
-    console.log(year)
-    console.log(month)
-    console.log(day)
-    console.log(mode)
     fetchReminders(selectedDate, mode);
   }
 
@@ -71,7 +60,7 @@ class Reminders extends Component {
     const sameMonth = dateFns.isSameMonth(selectedDate, today)
     let prefix = (dateFns.isPast(selectedDate) && !sameMonth) ? "did" : "do"
     let suffix = sameMonth
-          ? 'this month'
+          ? '<b>this month</b>'
           : dateFns.isSameYear(selectedDate, today)
               ? 'this ' + dateFns.format(selectedDate, 'MMMM')
               : 'on ' + dateFns.format(selectedDate, 'MMMM YYYY')

@@ -1,0 +1,16 @@
+.footer {
+  text-align: center;
+  color: #fff;
+  padding-top: .5em;
+  font-weight: bold;
+  position: relative;
+
+  a {
+    font-weight: normal;
+    position: absolute;
+    right: 1em;
+    top: .25em;
+    // margin: -.25em 0 0 0;
+    color: #fff;
+  }
+}
