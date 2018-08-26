@@ -7,6 +7,11 @@ Array [
     "date": 2018-02-01T17:30:00.000Z,
     "text": "Math Homework",
   },
+  Object {
+    "color": "purple",
+    "date": 2018-02-01T17:40:00.000Z,
+    "text": "Sci Homework",
+  },
 ]
 `;
 
@@ -17,6 +22,11 @@ Array [
     "date": 2018-02-01T17:30:00.000Z,
     "text": "Math Homework",
   },
+  Object {
+    "color": "purple",
+    "date": 2018-02-01T17:40:00.000Z,
+    "text": "Sci Homework",
+  },
 ]
 `;
 
@@ -24,6 +34,7 @@ exports[`api get bubbles 1`] = `
 Object {
   "1": Array [
     "pink",
+    "purple",
     "purple",
   ],
 }

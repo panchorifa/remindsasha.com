@@ -4,7 +4,7 @@ import Days from './Days'
 import Cells from './Cells'
 import './Calendar.scss'
 
-class CalendarMonth extends Component {
+class Calendar extends Component {
   render() {
     return (
       <div className="calendar">
@@ -16,4 +16,4 @@ class CalendarMonth extends Component {
   }
 }
 
-export default CalendarMonth
+export default Calendar

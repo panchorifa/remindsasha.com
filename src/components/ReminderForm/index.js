@@ -1,4 +1,4 @@
-import {setHours, setMinutes} from 'date-fns'
+import {setHours, setMinutes, getHours, getMinutes} from 'date-fns'
 import React from 'react'
 import {connect} from 'react-redux'
 import TimePicker from './TimePicker'
@@ -22,8 +22,20 @@ class ReminderForm extends React.Component {
     if(this.isValid()) {
       const {color, date} = this.state
       const {selectedDate, addReminder, fetchReminders, fetchMonthBubbles} = this.props
-      const reminder = {text: this.inputNode.value, color, date}
+      let xdate = selectedDate
+      console.log(getHours(date))
+      xdate=setHours(xdate, getHours(date))
+      console.log(xdate)
+      xdate=setMinutes(xdate, getMinutes(date))
+      const reminder = {text: this.inputNode.value, color, date: xdate}
+      console.log('--------------------------------')
+      console.log('--------------------------------')
+      console.log(date)
       console.log(reminder)
+      console.log('--------------------------------')
+      console.log('--------------------------------')
+
+
       addReminder(reminder).then(() => {
         console.log('success')
         fetchReminders(selectedDate, 'day')
@@ -59,11 +71,14 @@ class ReminderForm extends React.Component {
 
   changeHours = pos => {
     const date = setHours(this.state.date, pos.x)
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>>')
+    console.log(pos.x)
+    console.log(date)
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>>')
     this.setState({date: date})
   }
 
   changeMinutes = pos => {
-    const {selectedDate} = this.props
     const date = setMinutes(this.state.date, pos.x)
     this.setState({date: date})
   }

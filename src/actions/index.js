@@ -16,7 +16,7 @@ export const setView = view => dispatch =>
   dispatch({type: 'SET_VIEW', view: view})
 
 export const fetchReminders = (date, mode) => dispatch => {
-  dispatch({type: 'FETCHING_REMINDERS'})
+  dispatch({type: 'FETCHING_REMINDERS', mode: mode})
   return api.fetchReminders(date, mode).then(
     response => {
       dispatch({type: 'FETCH_REMINDERS_SUCCESS', response: response})

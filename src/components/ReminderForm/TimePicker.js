@@ -1,4 +1,4 @@
-import {format, setHours, setMinutes, getHours, getMinutes} from 'date-fns'
+import {format, getHours, getMinutes} from 'date-fns'
 import React, { Component } from 'react'
 import InputSlider from 'react-input-slider'
 import './TimePicker.scss'

@@ -27,18 +27,18 @@ const monthlyReminders = date => {
 export const fetchReminders = (date, filter) =>
   delay(500).then(() => {
     const reminders = monthlyReminders(date)
+    console.log(reminders)
     if(Object.keys(reminders).length > 0) {
       switch (filter) {
         case 'month':
           const all = []
-          if(Object.keys(reminders).length>0) {
-            const z = Object.values(reminders)
-            for(const entry of z) {
-              if(Object.keys(entry).length>0) {
-                all.push(Object.values(entry)[0])
-              }
+          for(const day of Object.keys(reminders)) {
+            console.log(day)
+            for(const time of Object.keys(reminders[day])) {
+              all.push(reminders[day][time])
             }
           }
+          console.log(all)
           // TODO clean this sorting thing
           return all.sort((a,b) => a.date - b.date)
         case 'day':

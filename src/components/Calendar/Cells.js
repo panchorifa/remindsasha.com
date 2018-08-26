@@ -6,18 +6,17 @@ import {connect} from 'react-redux'
 import * as actions from '../../actions'
 import './Cells.scss'
 
-const CellDay = ({day, today, monthStart, selectedDate, selectDay, colors}) => {
+const CellDay = ({mode, day, today, monthStart, selectedDate, selectDay, colors}) => {
   const cloneDay = day
   const formattedDate = format(day, 'D')
   const sameDay = isSameDay(day, today)
   const selected = isSameDay(day, selectedDate)
   const clazz = !isSameMonth(day, monthStart)
-        ? 'disabled' : selected ? 'selected' : ''
+        ? 'disabled' : (selected && mode === 'day') ? 'selected' : ''
 
   const bubbles = colors.map(color =>
     <div key={color} className="bubble" style={{backgroundColor: color, opacity: selected ? 1 : .2}}></div>
   )
-  console.log(bubbles)
   return   <div
       className={`col cell ${clazz}`}
       key={day}
@@ -43,10 +42,14 @@ class Cells extends React.Component {
   selectDay(date) {
     const day = dateFns.format(date, '/YYYY/M/D')
     this.props.history.push(day)
+    const { selectedDate, loadDayDate } = this.props
+    if(dateFns.isSameDay(selectedDate, day)) {
+      loadDayDate(date)
+    }
   }
 
   render() {
-    const { selectedDate, monthColors } = this.props
+    const { selectedDate, monthColors, mode } = this.props
     const monthStart = startOfMonth(selectedDate)
     const rows = []
     let day = startOfWeek(monthStart)
@@ -56,7 +59,8 @@ class Cells extends React.Component {
       for (let i = 0; i < 7; i++) {
         const dayColors = monthColors[format(day, 'D')] || []
         days.push(
-          <CellDay key={i} day={day}
+          <CellDay mode={mode}
+                key={i} day={day}
                 colors={dayColors}
                 today={today}
                 monthStart={monthStart}
@@ -76,6 +80,7 @@ class Cells extends React.Component {
 
 const mapStateToProps = store => {
   return {
+    mode: store.mode,
     selectedDate: store.selectedDate,
     monthColors: store.monthColors
   }

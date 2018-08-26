@@ -21,7 +21,21 @@ class Reminders extends Component {
   }
 
   fetchData() {
-    const { selectedDate, mode, fetchReminders } = this.props
+    const {year, month, day} = this.props.match.params
+    const { selectedDate, fetchReminders } = this.props
+
+    const mode = (year && month && !day) ? 'month' : 'day'
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>')
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>')
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>')
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>')
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>')
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>')
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>')
+    console.log(year)
+    console.log(month)
+    console.log(day)
+    console.log(mode)
     fetchReminders(selectedDate, mode);
   }
 
@@ -83,7 +97,7 @@ class Reminders extends Component {
     const {year, day} = this.props.match.params
     const {selectedDate, reminders, mode, view, fetching} = this.props
     const reminderItems = reminders.map(reminder =>
-      <Reminder settings={reminder} key={reminder.date}/>
+      <Reminder mode={mode} settings={reminder} key={reminder.date}/>
     )
 
     const msg = (!year || (year && day))
@@ -93,8 +107,15 @@ class Reminders extends Component {
     // TODO refactor and reuse
     const today = new Date()
     const sameDay = dateFns.isSameDay(selectedDate, today)
-    const pastDate = dateFns.isPast(selectedDate) && !sameDay
-
+    const pastDate = !sameDay && dateFns.isPast(selectedDate)
+    console.log('>>>>>>>>>>>>>>>>>>>')
+    console.log('>>>>>>>>>>>>>>>>>>>')
+    console.log(mode)
+    console.log(pastDate || mode === 'month')
+    console.log(mode === 'month')
+    console.log(pastDate)
+    console.log('>>>>>>>>>>>>>>>>>>>')
+    console.log('>>>>>>>>>>>>>>>>>>>')
     return (
       <div className="dayreminders">
         <CurrentDate/>

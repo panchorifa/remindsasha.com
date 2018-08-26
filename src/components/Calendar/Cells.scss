@@ -41,37 +41,37 @@
     transition: .25s ease-out;
     letter-spacing: -.07em;
   }
-}
-// TODO clean this up
-.cell:last-child {
-  border-right: none;
-}
-
-.cell:hover {
-  background: var(--bg-color);
-  transition: 0.5s ease-out;
-}
-
-.cell:hover .bg, .calendar .body .selected .bg  {
-  opacity: 0.05;
-  transition: .5s ease-in;
-}
-
-.bubbles {
-  height: 100%;
-  padding: 1.5em 0 0 .35em;
-  overflow: hidden;
-  line-height: .1em;
-  .bubble {
-    display: inline-block;
-    line-height: .1em;
-    height: .5em;
-    width: .75em;
-    margin: 0 .35em .3em 0;
-    border-radius: 1em;
+  &:last-child {
+    border-right: none;
   }
+  &:hover {
+    background: var(--bg-color);
+    transition: 0.5s ease-out;
+  }
+
+  .bubbles {
+    height: 100%;
+    padding: 1.5em 0 0 .35em;
+    overflow: hidden;
+    line-height: .1em;
+    .bubble {
+      display: inline-block;
+      line-height: .1em;
+      height: .5em;
+      width: .75em;
+      margin: 0 .35em .3em 0;
+      border-radius: 1em;
+    }
+  }
+
 }
 
 .disabled .bubbles {
   display: none;
+}
+
+
+.cell:hover .bg, .calendar .body .selected .bg  {
+  opacity: .1;
+  transition: .5s ease-in;
 }
