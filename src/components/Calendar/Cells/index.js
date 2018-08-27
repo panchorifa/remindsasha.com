@@ -1,10 +1,10 @@
-import dateFns from 'date-fns'
-import {addDays, isSameMonth, format, startOfWeek, endOfWeek, startOfMonth, endOfMonth} from 'date-fns'
+import {addDays, isSameMonth, isSameDay, format, startOfWeek, endOfWeek,
+  startOfMonth, endOfMonth} from 'date-fns'
 import React from 'react'
 import { withRouter } from 'react-router'
 import {connect} from 'react-redux'
-import * as actions from '../../actions'
-import CellDay from './CellDay'
+import * as actions from '../../../actions'
+import CellDay from '../CellDay'
 import './Cells.scss'
 
 class Cells extends React.Component {
@@ -23,10 +23,10 @@ class Cells extends React.Component {
   }
 
   selectDay = (date) => {
-    const day = dateFns.format(date, '/YYYY/M/D')
+    const day = format(date, '/YYYY/M/D')
     this.props.history.push(day)
     const { selectedDate, loadDayDate } = this.props
-    if(dateFns.isSameDay(selectedDate, day)) {
+    if(isSameDay(selectedDate, day)) {
       loadDayDate(date)
     }
   }

@@ -1,4 +1,3 @@
-// import {isSameMonth} from 'date-fns'
 import * as api from '../api'
 
 export const loadMonthDate = (year, month) => dispatch =>
@@ -10,9 +9,6 @@ export const loadDayDate = date => dispatch =>
 export const changeName = name => dispatch =>
   dispatch({type: 'CHANGE_NAME', name: name})
 
-export const setModal = modal => dispatch =>
-  dispatch({type: 'SET_MODAL', modal: modal})
-
 export const setView = (view, reminder=null) => dispatch =>
   dispatch({type: 'SET_VIEW', view: view, reminder: reminder})
 
@@ -20,9 +16,6 @@ export const fetchReminders = (date, mode, reload=true) => (dispatch, getState) 
   if(reload) {
     dispatch({type: 'FETCHING_REMINDERS', mode: mode})
   }
-  // if(mode ==='month' && !isSameMonth(getState().selectedDate, date)) {
-  //   dispatch({type: 'FETCHING_BUBBLES'})
-  // }
   return api.fetchReminders(date, mode).then(
     response => {
       dispatch({type: 'FETCH_REMINDERS_SUCCESS', response: response})
@@ -41,9 +34,6 @@ export const addReminder = reminder => dispatch =>
   api.addReminder(reminder)
     .then(response => {
       dispatch({type: 'ADD_REMINDER_SUCCESS', response: response})
-    })
-    .catch(error => {
-      dispatch({type: 'ADD_REMINDER_FAILURE', error: error})
     })
 
 export const deleteReminder = date => (dispatch, getState) =>

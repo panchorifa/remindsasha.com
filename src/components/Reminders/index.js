@@ -5,6 +5,7 @@ import { withRouter } from 'react-router'
 import CurrentDate from './CurrentDate'
 import Reminder from './Reminder'
 import ReminderForm from './ReminderForm'
+import ReminderUpdate from './ReminderForm/ReminderUpdate'
 import * as actions from '../../actions'
 import './Reminders.scss'
 
@@ -102,7 +103,7 @@ class Reminders extends Component {
         <CurrentDate/>
         <hr/>
         <div className="loading" style={{display: fetching ?  'flex' : 'none'}}>
-          Loading...
+          <span className="material-icons md-24 fa-spin">data_usage</span>Loading...
         </div>
         <div style={{display: (fetching || view !== 'list') ? 'none' : 'flex'}}
              className="list">
@@ -113,9 +114,13 @@ class Reminders extends Component {
               onClick={this.newReminder} className="newreminderbtn">New Reminder</div>
           </div>
         </div>
-        <div style={{display: view === 'list' ? 'none' : 'flex'}}
+        <div style={{display: view === 'form' ? 'flex' : 'none'}}
              className="xform">
           <ReminderForm/>
+        </div>
+        <div style={{display: view === 'update' ? 'flex' : 'none'}}
+             className="xform">
+          <ReminderUpdate/>
         </div>
       </div>
     )

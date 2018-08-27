@@ -1,5 +1,23 @@
 .reminder-form {
-  // border: 10px solid blue;
+  border: 2px solid var(--main-color);
+  border-top: 3em solid var(--main-color);
+  border-radius: .25em;
+  padding: 1em;
+  position: relative;
+
+  .times {
+    position:absolute;
+    right: .5em;
+    top: -1.5em;
+    color: #fff;
+    cursor: pointer;
+  }
+  h3 {
+    position:absolute;
+    left: 1em;
+    top: -3em;
+    color: #fff;
+  }
   input {
     width: 100%;
     font-size: 1.4em;
@@ -18,16 +36,17 @@
     text-align: center;
     padding: .4em;
     cursor: pointer;
-    // opacity: .4;
     .icon {
       margin-top: -.2em;
       margin-right: .5em;
     }
-    &:hover {
-      // opacity: 1;
+    .disabled {
+      opacity: .3;
     }
   }
-  .btn .disabled {
-    opacity: .3;
+  .error {
+    font-weight: bold;
+    color: red;
+    margin-top: -1em;
   }
 }

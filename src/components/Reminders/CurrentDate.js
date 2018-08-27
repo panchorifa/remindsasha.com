@@ -6,9 +6,9 @@ import * as actions from '../../actions'
 
 class CurrentDate extends React.Component {
   selectDay() {
-    // this.props.
     this.props.setView('list')
   }
+  
   render() {
     const {selectedDate} = this.props
     const {year, day} = this.props.match.params

@@ -1,12 +1,37 @@
 import dateFns from 'date-fns'
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+// import {withRouter} from 'react-router'
 import * as actions from '../../actions'
 import Calendar from '../Calendar'
 import Reminders from '../Reminders'
 import './Dashboard.scss'
 
 class Dashboard extends Component {
+
+  validateParams = () => {
+    const { year, month, day } = this.props.match.params
+    try {
+      if(year && day) {
+        const date = new Date(year, month-1, day)
+        if(dateFns.getYear(date) ===  parseInt(year, 10) &&
+           dateFns.getMonth(date) === (parseInt(month, 10)-1) &&
+           date.getDate() === parseInt(day, 10)) {
+          return true
+        }
+      } else if(year && month) {
+        const date = new Date(year, month-1)
+        if(dateFns.getYear(date) ===  parseInt(year, 10) &&
+          dateFns.getMonth(date) === (parseInt(month, 10)-1) ) {
+          return true
+        }
+      } else if(!year) {
+        return true;
+      }
+    } catch(err){}
+    this.props.history.push('/')
+  }
+
   componentWillMount() {
     const { year, month, day } = this.props.match.params
     if(day) {
@@ -17,6 +42,7 @@ class Dashboard extends Component {
   }
 
   componentDidUpdate() {
+    this.validateParams()
     const { mode, selectedDate, loadMonthDate, loadDayDate } = this.props
     const { year, month, day } = this.props.match.params
 

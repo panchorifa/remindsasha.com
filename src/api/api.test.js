@@ -17,15 +17,10 @@ describe('api', () => {
     expect(await api.addReminder(reminder2)).toEqual(reminder2)
   })
 
-  test('error - reminder already exists', async () => {
-    //TODO
-    // try {
-    //   const r = await api.addReminder(reminder)
-    // } catch(err) {
-    //   console.log(err)
-    // }
-    // await expect(api.addReminder(reminder)).rejects.ToThrow(/already exists/)
-    // expect(await api.addReminder(reminder)).toThrowError(/already exists/)
+  test('error - reminder at this time already exists', async () => {
+    // TODO figure out how to test the thrown error
+    // expect(await api.addReminder(reminder)).rejects.ToThrow(/already have/)
+    // expect(await api.addReminder(reminder)).toThrowError(/already have/)
   })
 
   test('fetch monthly reminders', async () => {
@@ -51,11 +46,17 @@ describe('api', () => {
 
   test('update reminder', async () => {
     const date3 = new Date(2018,1,1,11,0)
-    const reminder = {color: 'black', text: 'updated', date: date3}
-    await api.updateReminder(date, reminder)
+    const reminder3 = {color: 'black', text: 'updated', date: date3}
+    await api.updateReminder(date, reminder3)
     const reminders = await api.fetchReminders(date, 'day')
     expect(reminders.length).toEqual(2)
-    expect(reminders[1]).toEqual(reminder)
+    expect(reminders[1]).toEqual(reminder3)
+  })
+
+  test('update reminder to existing time', async () => {
+    const reminder3 = {color: 'black', text: 'updated', date: date2}
+    // TODO figure out how to test the thrown error
+    // expect(await api.updateReminder(date, reminder3)).toThrowError(/already have/)
   })
 
   test('get bubbles', async () => {
