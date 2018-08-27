@@ -1,10 +1,12 @@
 .reminder-form {
+  // border: 10px solid blue;
   input {
     width: 100%;
     font-size: 1.4em;
     padding: .25em;
     outline-width: 0;
     color: #888;
+    margin: .25em 0 1em 0;
   }
   .btn {
     background-color: var(--sec-color);

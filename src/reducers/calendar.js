@@ -1,50 +1,10 @@
 import dateFns from 'date-fns'
-// const reminder = (state, action) => {
-//   switch (action.type) {
-//     case 'ADD_REMINDER':
-//       return {
-//         id: action.id,
-//         text: action.text,
-//         completed: false,
-//       };
-//     case 'TOGGLE_REMINDER':
-//       if (state.id !== action.id) {
-//         return state;
-//       }
-//       return {
-//         ...state,
-//         completed: !state.completed,
-//       };
-//     default:
-//       return state;
-//   }
-// };
 
 const isBetween = (min, max, value) => {
   return value > min && value < max
 }
 
-// const loadMonth = (year, month) => {
-//   let date = new Date()
-//   if (month) {
-//     if(isBetween(0, 13, month)) {
-//       date = new Date(year, month-1, 1)
-//     } else {
-//       date = new Date(year, dateFns.getMonth(date)+1, 1)
-//       // this.props.history.push('/'+year)
-//     }
-//   } else if(year) {
-//     if(isBetween(1969, 2100, year)) {
-//       date =  new Date(year, dateFns.getMonth(date), 1)
-//     } else {
-//       // this.props.history.push('/')
-//     }
-//   }
-//   return date
-// }
-
 const loadYear = (year, month) => {
-  console.log(year)
   if(year && isBetween(1969, 2100, parseInt(year, 10))) {
     return year
   }
@@ -83,12 +43,13 @@ const loadDate = (year, month, day=null) => {
 const calendar = (state = {
     name: 'Sasha',
     selectedDate: null,
-    mode: 'day', //day or month
-    view: 'list', // list or form
+    mode: 'day', //day/month
+    view: 'list', // list/form/update
     modal: true,
     fetchingReminders: false,
     fetchingBubbles: false,
     reminders: [],
+    reminder: null,
     monthColors: {}
   }, action) => {
   switch (action.type) {
@@ -119,12 +80,15 @@ const calendar = (state = {
     case 'SET_VIEW':
       return {
         ...state,
-        view: action.view
+        view: action.view,
+        reminder: action.reminder
       }
     case 'FETCHING_REMINDERS':
       return {
         ...state,
-        fetchingReminders: true
+        fetchingReminders: true,
+        reminder: null,
+        view: 'list'
       }
     case 'FETCHING_BUBBLES':
       return {
@@ -135,7 +99,9 @@ const calendar = (state = {
       return {
         ...state,
         reminders: action.response,
-        fetchingReminders: false
+        fetchingReminders: false,
+        reminder: null,
+        view: 'list'
       }
     case 'FETCH_REMINDERS_FAILURE':
       return {
@@ -158,6 +124,15 @@ const calendar = (state = {
       return {
         ...state,
         view: 'form'
+      }
+    case 'UPDATE_REMINDER_SUCCESS':
+      return {
+        ...state,
+        view: 'list'
+      }
+    case 'DELETE_REMINDER_SUCCESS':
+      return {
+        ...state
       }
     default:
       return state;

@@ -5,9 +5,11 @@ class Suggestions extends React.Component {
   render() {
     return(
       <div className="suggestions">
-        <div className="title">Have a suggestion?</div>
-        <textarea />
-        <button>Send</button>
+        <div className="panel">
+          <div className="title">Have a suggestion?</div>
+          <textarea />
+          <button>Send</button>
+        </div>
       </div>
     )
   }

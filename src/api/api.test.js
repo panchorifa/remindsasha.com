@@ -49,6 +49,15 @@ describe('api', () => {
     expect(reminders).toEqual([])
   })
 
+  test('update reminder', async () => {
+    const date3 = new Date(2018,1,1,11,0)
+    const reminder = {color: 'black', text: 'updated', date: date3}
+    await api.updateReminder(date, reminder)
+    const reminders = await api.fetchReminders(date, 'day')
+    expect(reminders.length).toEqual(2)
+    expect(reminders[1]).toEqual(reminder)
+  })
+
   test('get bubbles', async () => {
     const date3 = new Date(2018, 1, 1, 11, 30)
     const reminder3 = {date: date3, color: 'purple', text: 'Sci Homework'}

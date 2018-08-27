@@ -1,35 +1,100 @@
 .reminder {
-  background-color: var(--bg-color);
+  display: flex;
+  flex-direction: column;
+  // background-color: red;//var(--bg-color);
   border: 1px solid var(--border-color);
+  // border: 1px solid red;
+  // background-color: red;
   margin-bottom: 1em;
   border-radius: .25em;
   height: 4em;
-  display: flex;
-  flex-direction: row;
-  .color {
-    height: 4em;
-    width: 2em;
-    border-top-left-radius: .25em;
-    border-bottom-left-radius: .25em;
-    background-color: var(--sec-color);
+  position: relative;
+  // overflow-y: h;
+  // z-index: 0;
+  &:hover {
+    cursor: pointer
   }
-  .content {
-    padding: .5em 0 0 1em ;
-    .title {
-      display: flex;
-      font-weight: bold;
-      color: var(--sec-color);
-      .icon {
-        margin: .25em .25em 0 0;
-        height: 1.2em;
-      }
-      .time {
-        padding-top: 0;
+  .warning {
+    color: #fff;
+    height: 4em;
+    border-radius: .25em;
+    padding: 1em;
+    line-height: 2em;
+    display:flex;
+    flex-direction: row;
+    position: relative;
+    .actions {
+      position: absolute;
+      right: 1em;
+      z-index: 100;
+      button {
+        width: 5em;
+        text-align: center;
+        padding: .5em;
+        margin-left: 1.5em;
+        border: none;
+        outline: none;
+        border-radius: .5em;
+        cursor: pointer;
+        &:hover {
+          background-color: var(--sec-color);
+          color: #fff;
+        }
       }
     }
-    .text {
+  }
+  .main {
+    display: flex;
+    flex-direction: column;
+    // border: 1px solid blue;
+    position: relative;
+    background-color: #f7f7f7;
+    .actions {
+      position: absolute;
+      top: .25em;
+      right: .5em;
+      a {
+        cursor: pointer;
+        margin-left: .25em;
+        width: 1em;
+        height: 2em;
+        color: #222;
+        opacity: .2;
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+    .color {
+      position: absolute;
+      height: 4em;
+      width: 2em;
+      border-top-left-radius: .25em;
+      border-bottom-left-radius: .25em;
+      background-color: var(--sec-color);
+    }
+    .content {
+      display: flex;
+      flex-direction: column;
       // border: 1px solid red;
-      // margin: 1em;
+      padding: .5em 0 0 2.5em ;
+      .title {
+        display: flex;
+        font-weight: bold;
+        color: var(--sec-color);
+        .icon {
+          margin: .25em .25em 0 0;
+          height: 1.2em;
+        }
+        .time {
+          padding-top: 0;
+        }
+      }
+      .text {
+        display: block;
+        // border: 1px solid red;
+        // margin: 1em;
+      }
     }
   }
 }

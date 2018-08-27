@@ -4,37 +4,68 @@ import {connect} from 'react-redux'
 import TimePicker from './TimePicker'
 import ColorPicker from './ColorPicker'
 import * as actions from '../../../actions'
-import './Form.scss'
+import './ReminderForm.scss'
 
-const colors = ['blue', 'red', 'yellow', 'pink',
-  'purple', 'black', 'cyan', '#DC6ACF',
-  '#FF5427', '#72c117', '#542280', '#D614481']
+const colors = [
+  'black',
+  '#00a8ff',
+  '#9c88ff',
+  '#fbc531',
+  '#4cd137',
+  '#22a6b3',
+  '#487eb0',
+  '#e84118',
+  '#DC6ACF',
+  '#8c7ae6',
+  '#e91e63',
+  '#72c117',
+  '#542280',
+  '#D614481',
+  '#888','#444', '#aaa', 'blue']
 
 class ReminderForm extends React.Component {
   state = {
     valid: false,
     color: colors[0],
-    date: new Date()
+    date: new Date(),
+    text: '',
+    updated: false,
+    updatedText: false
   }
 
-  submit(e) {
+  submit = (e) => {
     e.preventDefault()
-    if(this.isValid()) {
+    if(this.state.valid && this.isValid()) {
       const {color, date} = this.state
-      const {selectedDate, addReminder, fetchReminders, fetchMonthBubbles} = this.props
+      const {saveApp, selectedDate,
+        addReminder, updateReminder, reminder, view,
+        fetchReminders, fetchMonthBubbles} = this.props
       let xdate = selectedDate
       xdate=setHours(xdate, getHours(date))
       xdate=setMinutes(xdate, getMinutes(date))
-      const reminder = {text: this.inputNode.value, color, date: xdate}
+      const xreminder = {text: this.inputNode.value, color, date: xdate}
 
-      addReminder(reminder).then(() => {
-        fetchReminders(selectedDate, 'day')
-        fetchMonthBubbles(selectedDate)
-        this.inputNode.value = ''
-        this.setState({color: colors[0], valid: false})
-      }).catch(error => {
-        console.log(error)
-      })
+      if(view === 'update') {
+        updateReminder(reminder.date, xreminder).then(() => {
+          fetchReminders(selectedDate, 'day')
+          fetchMonthBubbles(selectedDate)
+          this.inputNode.value = ''
+          this.setState({color: colors[0], valid: false})
+          saveApp(localStorage)
+        }).catch(error => {
+          console.log(error)
+        })
+      } else {
+        addReminder(xreminder).then(() => {
+          fetchReminders(selectedDate, 'day')
+          fetchMonthBubbles(selectedDate)
+          this.inputNode.value = ''
+          this.setState({color: colors[0], valid: false})
+          saveApp(localStorage)
+        }).catch(error => {
+          console.log(error)
+        })
+      }
     }
   }
 
@@ -42,8 +73,9 @@ class ReminderForm extends React.Component {
     return this.inputNode.value.trim().length > 0
   }
 
-  onChange(e) {
-    this.setState({ valid: this.isValid()})
+  onChange = (e) => {
+    console.log(e.target.value)
+    this.setState({ text: e.target.value, valid: this.isValid(), updatedText: true})
   }
 
   componentWillMount() {
@@ -52,39 +84,60 @@ class ReminderForm extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({ valid: this.isValid()})
+    this.setState({ valid: this.isValid(), text: ''})
   }
 
-  pickColor(color) {
-    this.setState({color: color})
+  pickColor = (color) => {
+    this.setState({color: color, updated: true, valid: this.isValid()})
   }
 
   changeHours = pos => {
     const date = setHours(this.state.date, pos.x)
-    this.setState({date: date})
+    this.setState({date: date, updated: true, valid: this.isValid()})
   }
 
   changeMinutes = pos => {
     const date = setMinutes(this.state.date, pos.x)
-    this.setState({date: date})
+    this.setState({date: date, updated: true, valid: this.isValid()})
   }
 
   render() {
-    const {valid, color, date} = this.state
+    const {view, reminder} = this.props
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>')
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>')
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>')
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>')
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>')
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>')
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>')
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>')
+    console.log(view)
+    console.log(reminder)
+    const {text, valid, color, date, updated, updatedText} = this.state
+    // let value = text
+    // if(view === 'update' && !updated && reminder && text.length>=0){
+    //   value = reminder.text
+    // }
+    const selectedValue = updatedText || !reminder ?  text : reminder.text
+    const selectedColor = updated || !reminder ? color : reminder.color
+    const selectedDate = updated || !reminder ? date : reminder.date
     return (
       <form className='reminder-form' onSubmit={this.submit.bind(this)}>
-        <TimePicker date={date}
-            onChangeHours={this.changeHours.bind(this)}
-            onChangeMinutes={this.changeMinutes.bind(this)}/>
-        <ColorPicker colors={colors} selectedColor={color}
-            onClick={this.pickColor.bind(this)}/>
+        <TimePicker date={selectedDate}
+            onChangeHours={this.changeHours}
+            onChangeMinutes={this.changeMinutes}/>
+        <ColorPicker colors={colors}
+              selectedColor={selectedColor}
+              onClick={this.pickColor}/>
         <div>
-          <input onChange={this.onChange.bind(this)}
+          <input onChange={this.onChange}
+              // placeholder="Enter your reminder"
+              value={selectedValue}
               ref={node => this.inputNode = node}/>
         </div>
-        <div onClick={this.submit.bind(this)} className="btn"
-              style={{opacity: valid ? 1 : .3}}>
-          <span className="icon">access_alarm</span>Add Reminder
+        <div onClick={this.submit} className="btn"
+              style={{opacity: valid ? 1 : .3, cursor: valid ? 'pointer' : 'not-allowed'}}>
+          <span className="icon">access_alarm</span>{view === 'update' ? 'Update' : 'Add'} Reminder
         </div>
       </form>
     )
@@ -93,7 +146,9 @@ class ReminderForm extends React.Component {
 
 const mapStateToProps = store => {
   return {
-    selectedDate: store.selectedDate
+    selectedDate: store.selectedDate,
+    view: store.view,
+    reminder: store.reminder
   }
 }
 export default connect(mapStateToProps, actions)(ReminderForm)

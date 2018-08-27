@@ -66,8 +66,16 @@
 
 }
 
-.disabled .bubbles {
-  display: none;
+.disabled {
+  .bubbles {
+    display: none;
+  }
+  .today {
+    display: none;
+  }
+  .number {
+    display: none;
+  }
 }
 
 

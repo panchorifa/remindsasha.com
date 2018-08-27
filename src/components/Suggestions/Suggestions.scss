@@ -1,45 +1,48 @@
 .suggestions {
   width: 400px;
-  margin: 3em auto;
+  margin: 0 auto;
   text-align: center;
   font-size: 2em;
-  background-color: #000;
-  padding: 1em 1em;
-  border-radius: .25em;
-
-  .title {
-    font-weight: bold;
-    color: #fff;
-    padding-bottom: .5em;
-  }
-
-  textarea:focus, input:focus {
-    outline: none;
-  }
-
-  textarea{
-    font-size: .5em;
-    font-style: italic;
-    padding: .5em;
-    width: 20em;
-    height: 8em;
+  background-color: #fff;
+  padding: 2em 0;
+  .panel {
+    background-color: #000;
+    padding: .5em 0 1em 0;
     border-radius: .25em;
-    outline: none;
-    border: none;
-  }
-
-  button {
-    background-color: var(--bg-color);
-    color: #444;
-    width: 20em;
-    padding: .5em;
-    font-size: .5em;
-    border: none;
-    border-radius: .25em;
-    cursor: pointer;
-    &:hover {
-      background-color: var(--sec-color);
+    .title {
+      font-weight: bold;
       color: #fff;
+      padding: 0 0 .5em 0;
+    }
+
+    textarea:focus, input:focus {
+      outline: none;
+    }
+
+    textarea{
+      font-size: .5em;
+      font-style: italic;
+      padding: .5em;
+      width: 20em;
+      height: 8em;
+      border-radius: .25em;
+      outline: none;
+      border: none;
+    }
+
+    button {
+      background-color: var(--bg-color);
+      color: #444;
+      width: 20em;
+      padding: .5em;
+      font-size: .5em;
+      border: none;
+      border-radius: .25em;
+      cursor: pointer;
+      &:hover {
+        background-color: var(--sec-color);
+        color: #fff;
+      }
     }
   }
 }

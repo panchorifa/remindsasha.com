@@ -1,7 +1,10 @@
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import { routerMiddleware } from 'react-router-redux'
 import { createLogger}  from 'redux-logger'
 import thunk from 'redux-thunk'
+// import { offline } from '@redux-offline/redux-offline';
+// import offlineConfig from '@redux-offline/redux-offline/lib/defaults';
+
 import calendarApp from './reducers'
 
 const middleware = applyMiddleware(
@@ -18,7 +21,10 @@ const store = () => {
 
   return createStore(
     calendarApp,
-    middleware
+    compose(
+      middleware,
+      // offline(offlineConfig)
+    )
   )
 }
 

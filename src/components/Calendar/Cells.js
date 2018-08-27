@@ -1,45 +1,28 @@
 import dateFns from 'date-fns'
-import {addDays, isSameMonth, isSameDay, parse, format, startOfWeek, endOfWeek, startOfMonth, endOfMonth} from 'date-fns'
+import {addDays, isSameMonth, format, startOfWeek, endOfWeek, startOfMonth, endOfMonth} from 'date-fns'
 import React from 'react'
 import { withRouter } from 'react-router'
 import {connect} from 'react-redux'
 import * as actions from '../../actions'
+import CellDay from './CellDay'
 import './Cells.scss'
 
-const CellDay = ({mode, day, today, monthStart, selectedDate, selectDay, colors}) => {
-  const cloneDay = day
-  const formattedDate = format(day, 'D')
-  const sameDay = isSameDay(day, today)
-  const selected = isSameDay(day, selectedDate)
-  const clazz = !isSameMonth(day, monthStart)
-        ? 'disabled' : (selected && mode === 'day') ? 'selected' : ''
-
-  const bubbles = colors.map(color =>
-    <div key={color} className="bubble" style={{backgroundColor: color, opacity: selected ? 1 : .2}}></div>
-  )
-  return   <div
-      className={`col cell ${clazz}`}
-      key={day}
-      onClick={() => selectDay(parse(cloneDay))}
-    >
-      <span className={sameDay ? 'today' : 'number'}>{formattedDate}</span>
-      <span className='bg'>{formattedDate}</span>
-      <div className="bubbles">
-        {bubbles}
-      </div>
-    </div>
-}
-
 class Cells extends React.Component {
+  state = {
+    fetching: false
+  }
 
   componentDidUpdate(prevProps) {
     const {selectedDate, fetchMonthBubbles} = this.props
     if(!isSameMonth(prevProps.selectedDate, selectedDate)) {
-      fetchMonthBubbles(format(selectedDate))
+      this.setState({fetching: true})
+      fetchMonthBubbles(format(selectedDate)).then(() => {
+        this.setState({fetching: false})
+      })
     }
   }
 
-  selectDay(date) {
+  selectDay = (date) => {
     const day = dateFns.format(date, '/YYYY/M/D')
     this.props.history.push(day)
     const { selectedDate, loadDayDate } = this.props
@@ -49,7 +32,7 @@ class Cells extends React.Component {
   }
 
   render() {
-    const { selectedDate, monthColors, mode } = this.props
+    const { selectedDate, monthColors } = this.props
     const monthStart = startOfMonth(selectedDate)
     const rows = []
     let day = startOfWeek(monthStart)
@@ -57,15 +40,13 @@ class Cells extends React.Component {
     const today=new Date()
     while (day <= endOfWeek(endOfMonth(monthStart))) {
       for (let i = 0; i < 7; i++) {
-        const dayColors = monthColors[format(day, 'D')] || []
+        const dayColors = this.state.fetching ? [] : (monthColors[format(day, 'D')] || [])
         days.push(
-          <CellDay mode={mode}
-                key={i} day={day}
+          <CellDay key={i} day={day}
                 colors={dayColors}
                 today={today}
                 monthStart={monthStart}
-                selectedDate={selectedDate}
-                selectDay={this.selectDay.bind(this)}/>
+                selectDay={this.selectDay}/>
         )
         day = addDays(day, 1)
       }
@@ -82,7 +63,8 @@ const mapStateToProps = store => {
   return {
     mode: store.mode,
     selectedDate: store.selectedDate,
-    monthColors: store.monthColors
+    monthColors: store.monthColors,
+    fetching: store.fetchingBubbles || store.fetchingReminders
   }
 }
 

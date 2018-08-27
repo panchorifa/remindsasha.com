@@ -1,9 +1,10 @@
+// import { v4 } from 'node-uuid'
 import dateFns from 'date-fns'
 
 // This is a fake in-memory implementation of something
 // that would be implemented by calling a REST server.
 
-const fakeDatabase = {
+let fakeDatabase = {
   reminders: {
   }
 }
@@ -27,18 +28,15 @@ const monthlyReminders = date => {
 export const fetchReminders = (date, filter) =>
   delay(500).then(() => {
     const reminders = monthlyReminders(date)
-    console.log(reminders)
     if(Object.keys(reminders).length > 0) {
       switch (filter) {
         case 'month':
           const all = []
           for(const day of Object.keys(reminders)) {
-            console.log(day)
             for(const time of Object.keys(reminders[day])) {
               all.push(reminders[day][time])
             }
           }
-          console.log(all)
           // TODO clean this sorting thing
           return all.sort((a,b) => a.date - b.date)
         case 'day':
@@ -70,6 +68,15 @@ export const addReminder = ({color, text, date}) =>
     return reminder
   })
 
+export const updateReminder = (date, reminder) =>
+  delay(500).then(() => {
+    return deleteReminder(date).then(() => {
+      addReminder(reminder).then(() => {
+        return reminder
+      })
+    })
+  })
+
 export const deleteReminder = date =>
   delay(500).then(() => {
     const reminders = monthlyReminders(date)
@@ -96,3 +103,27 @@ export const fetchBubbles = date =>
     }
     return all
   })
+
+const KEY = 'remindsasha'
+
+export const loadApp = storage => {
+  try {
+    const serializedState = localStorage.getItem(KEY)
+    if (serializedState === null) {
+      return undefined;
+    }
+    fakeDatabase = JSON.parse(serializedState)
+  } catch (err) {
+    console.log(err)
+    return undefined
+  }
+}
+
+export const saveApp = storage => {
+  try {
+    const serializedState = JSON.stringify(fakeDatabase)
+    localStorage.setItem(KEY, serializedState)
+  } catch (err) {
+    console.log(err)
+  }
+}

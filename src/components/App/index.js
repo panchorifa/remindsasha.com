@@ -9,13 +9,17 @@ class App extends Component {
   render() {
     return (
       <div className='app'>
-        <div className='header'>
+        <div className='app-header'>
           <Header/>
         </div>
-        <div className='content'>
-          <Routes/>
+        <div className='app-content'>
+          <div className="content">
+            <Routes/>
+          </div>
         </div>
-        <Footer/>
+        <div className='app-footer'>
+          <Footer/>
+        </div>
       </div>
     )
   }

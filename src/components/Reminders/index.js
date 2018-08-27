@@ -77,9 +77,9 @@ class Reminders extends Component {
     return {__html: `${name}, you ${prefix} not have any reminders ${suffix}.`}
   }
 
-  toggleView(view) {
+  newReminder = () => {
     const {setView} = this.props
-    setView(view)
+    setView('form')
   }
 
   render() {
@@ -97,32 +97,24 @@ class Reminders extends Component {
     const today = new Date()
     const sameDay = dateFns.isSameDay(selectedDate, today)
     const pastDate = !sameDay && dateFns.isPast(selectedDate)
-    console.log('>>>>>>>>>>>>>>>>>>>')
-    console.log('>>>>>>>>>>>>>>>>>>>')
-    console.log(mode)
-    console.log(pastDate || mode === 'month')
-    console.log(mode === 'month')
-    console.log(pastDate)
-    console.log('>>>>>>>>>>>>>>>>>>>')
-    console.log('>>>>>>>>>>>>>>>>>>>')
     return (
       <div className="dayreminders">
         <CurrentDate/>
         <hr/>
-        <div className="loading" style={{display: fetching ?  'block' : 'none'}}>
+        <div className="loading" style={{display: fetching ?  'flex' : 'none'}}>
           Loading...
         </div>
-        <div style={{display: (fetching || view !== 'list') ? 'none' : 'block'}}
+        <div style={{display: (fetching || view !== 'list') ? 'none' : 'flex'}}
              className="list">
           <div className="msg" dangerouslySetInnerHTML={msg}/>
           <div className="items">
             {reminderItems}
+            <div style={{display: (pastDate || mode === 'month') ? 'none' : 'block'}}
+              onClick={this.newReminder} className="newreminderbtn">New Reminder</div>
           </div>
-          <div style={{display: (pastDate || mode === 'month') ? 'none' : 'block'}}
-            onClick={() => this.toggleView('form')} className="newreminderbtn">New Reminder</div>
         </div>
-        <div style={{display: view === 'list' ? 'none' : 'block'}}
-             className="form">
+        <div style={{display: view === 'list' ? 'none' : 'flex'}}
+             className="xform">
           <ReminderForm/>
         </div>
       </div>

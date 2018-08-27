@@ -1,20 +1,22 @@
 .main {
+  flex-grow: 1;
   display: flex;
   background-color: #fff;
 
-  .calendar {
+  .main-calendar {
     // min-width: 35em;
     // max-width: 35em;
     flex-grow: 1;
   }
 
-  .reminders {
+  .main-reminders {
     flex-grow: 0;
     background-color: #fff;
-    border-right: 2px solid var(--border-color);
-    padding: 1em 1.5em;
+    // border-right: 2px solid var(--border-color);
+    padding: 1em 1.5em 0 1.5em;
     width: 35em;
     min-width: 35em;
+    display: flex;
     .header {
       .icon{
         position: absolute;

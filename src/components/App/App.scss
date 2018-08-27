@@ -1,5 +1,5 @@
 html {
-  height: 100%;
+
 }
 
 body {
@@ -59,5 +59,40 @@ body {
   font-weight: 300;
   line-height: 1.5;
   color: var(--text-color);
-  background: var(--sec-color);
+  height: 100%;
+}
+
+.content {
+  max-width: 1260px;
+  margin: 0 auto;
+}
+
+.app {
+  height: 100vh;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  .app-header {
+    background-color: var(--main-color);
+    // overflow: hidden;
+  }
+
+  .app-content {
+    flex-grow: 1;
+    // border: 10px solid red;
+    display: flex;
+    .content {
+      display: flex;
+      align-content: stretch;
+      flex-grow: 1;
+      border-left: 1px solid var(--border-color);
+      border-right: 1px solid var(--border-color);
+    }
+  }
+
+  .app-footer {
+    background-color: var(--sec-color);
+    // border: 10px solid red;
+  }
+
 }

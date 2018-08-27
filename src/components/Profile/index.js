@@ -15,9 +15,11 @@ class Profile extends Component {
     const {name, changeName} = this.props
     return (
       <div className="profile">
-        <div className="title">Not {name}?</div>
-        <input type="text" placeholder="Enter your name"
+        <div className="panel">
+          <div className="title">Not {name}?</div>
+          <input type="text" placeholder="Enter your name"
                onKeyPress={(e) => this.handleKeyPress(changeName, e)}/>
+        </div>
       </div>
     )
   }

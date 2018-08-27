@@ -5,7 +5,7 @@ import './Header.scss'
 
 class Header extends Component {
   render() {
-    return <div className='header'>
+    return <div className='header content'>
       <Hi/>
       <div>
         <Link to='/' className='title'>
