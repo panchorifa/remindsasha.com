@@ -7,7 +7,7 @@ class Footer extends React.Component {
     return (
       <div className="footer content">
         &copy; Sasha Corp, 2018
-        <Link to="/suggestions">Do you have suggestions?</Link>
+        <Link to="/suggestions">Got suggestions?</Link>
       </div>
     )
   }
