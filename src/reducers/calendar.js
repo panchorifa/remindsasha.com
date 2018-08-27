@@ -45,7 +45,6 @@ const calendar = (state = {
     selectedDate: null,
     mode: 'day', //day/month
     view: 'list', // list/form/update
-    modal: true,
     fetchingReminders: false,
     fetchingBubbles: false,
     reminders: [],
@@ -71,11 +70,6 @@ const calendar = (state = {
       return {
         ...state,
         name: action.name
-      }
-    case 'SET_MODAL':
-      return {
-        ...state,
-        modal: action.modal
       }
     case 'SET_VIEW':
       return {
