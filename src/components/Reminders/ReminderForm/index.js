@@ -12,7 +12,8 @@ class ReminderForm extends React.Component {
     valid: false,
     date: null,
     color: colors[0],
-    error: null
+    error: null,
+    text: ''
   }
 
   submit = (e) => {
@@ -20,27 +21,14 @@ class ReminderForm extends React.Component {
     if(this.isValid()) {
       const {saveApp, selectedDate,
         addReminder, fetchReminders, fetchMonthBubbles} = this.props
-      const {color, date} = this.state
+      const {color, date, text} = this.state
       let xdate = selectedDate
-      console.log('>>>>>>>>>>>>>>>')
-      console.log('>>>>>>>>>>>>>>>')
-      console.log('>>>>>>>>>>>>>>>')
-      console.log('>>>>>>>>>>>>>>>')
-      console.log('>>>>>>>>>>>>>>>')
-      console.log('>>>>>>>>>>>>>>>')
-      console.log('>>>>>>>>>>>>>>>')
-      console.log('>>>>>>>>>>>>>>>')
-      console.log(date)
       xdate=setHours(xdate, date ? getHours(date) : 0)
       xdate=setMinutes(xdate, date ? getMinutes(date) : 0)
-      const xreminder = {text: this.inputNode.value, color, date: xdate}
+      const xreminder = {text: text, color, date: xdate}
       addReminder(xreminder).then((response) => {
         fetchReminders(selectedDate, 'day')
         fetchMonthBubbles(selectedDate)
-        this.inputNode.value = ''
-        // xdate = new Date()
-        // xdate = setHours(0)
-        // xdate = setMinutes(0)
         this.setState({text: '', error: null, color: colors[0],
               date: null, valid: false})
         saveApp(localStorage)
@@ -51,16 +39,11 @@ class ReminderForm extends React.Component {
   }
 
   isValid() {
-    return this.inputNode.value.trim().length > 0
+    return this.state.text.trim().length > 0
   }
 
   onChange = (e) => {
     this.setState({ text: e.target.value, valid: this.isValid(), updatedText: true})
-  }
-
-  componentWillMount() {
-    const {selectedDate} = this.props
-    this.setState({date: selectedDate})
   }
 
   componentDidMount() {
@@ -72,9 +55,6 @@ class ReminderForm extends React.Component {
   }
 
   close = () => {
-    // let date = this.props.selectedDate
-    // date = setHours(date, 0)
-    // date = setMinutes(date, 0)
     this.setState({text: '', error: null, color: colors[0], date: null})
     this.props.setView('list')
   }
@@ -104,8 +84,7 @@ class ReminderForm extends React.Component {
               onClick={this.pickColor}/>
         <div>
           <input onChange={this.onChange} value={text}
-              maxLength="30"
-              ref={node => this.inputNode = node}/>
+              maxLength="30"/>
         </div>
         <div onClick={this.submit} className="btn"
               style={{opacity: valid ? 1 : .3, cursor: valid ? 'pointer' : 'not-allowed'}}>

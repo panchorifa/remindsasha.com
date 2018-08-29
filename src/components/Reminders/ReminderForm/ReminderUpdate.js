@@ -58,11 +58,6 @@ class ReminderForm extends React.Component {
     this.setState({ text: e.target.value, valid: this.isValid(), updatedText: true})
   }
 
-  componentWillMount() {
-    const {selectedDate} = this.props
-    this.setState({date: selectedDate})
-  }
-
   componentDidMount() {
     this.setState({ valid: this.isValid(), text: ''})
   }
@@ -90,14 +85,14 @@ class ReminderForm extends React.Component {
   render() {
     const {reminder} = this.props
     const {error, text, valid, color, date, updatedText, updatedColor, updatedTime} = this.state
-    let selectedValue = updatedText || !reminder ?  text : reminder.text
-    let selectedColor = updatedColor || !reminder ? color : reminder.color
-    let xselectedDate = updatedTime || !reminder ? date : reminder.date
+    const selectedValue = updatedText || !reminder ?  text : reminder.text
+    const selectedColor = updatedColor || !reminder ? color : reminder.color
+    const xdate = updatedTime || !reminder ? date : reminder.date
     return (
       <form className='reminder-form' onSubmit={this.submit.bind(this)}>
         <span onClick={this.close} className="times material-icons md-24">close</span>
         <h3>Update Reminder</h3>
-        <TimePicker date={xselectedDate}
+        <TimePicker date={xdate}
             onChangeHours={this.changeHours}
             onChangeMinutes={this.changeMinutes}/>
         <ColorPicker colors={colors}

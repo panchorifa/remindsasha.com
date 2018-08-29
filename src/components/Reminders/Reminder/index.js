@@ -11,10 +11,10 @@ class Reminder extends React.Component {
   }
   edit = (e) => {
     e.preventDefault()
-    const {setView} = this.props
+    const {editReminder} = this.props
     const {color, text, date}  = this.props.settings
     const reminder = {color, text, date}
-    setView('update', reminder)
+    editReminder(reminder)
   }
   deleteWarning = (e) => {
     e.preventDefault()

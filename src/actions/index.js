@@ -9,6 +9,9 @@ export const loadDayDate = date => dispatch =>
 export const changeName = name => dispatch =>
   dispatch({type: 'CHANGE_NAME', name: name})
 
+export const editReminder = reminder => dispatch =>
+  dispatch({type: 'SET_VIEW', view: 'update', reminder: reminder})
+
 export const setView = (view, reminder=null) => dispatch =>
   dispatch({type: 'SET_VIEW', view: view, reminder: reminder})
 
