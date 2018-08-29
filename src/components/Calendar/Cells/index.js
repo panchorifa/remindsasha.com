@@ -9,7 +9,7 @@ import './Cells.scss'
 
 class Cells extends React.Component {
   state = {
-    fetching: false
+    fetching: false,
   }
 
   componentDidUpdate(prevProps) {
@@ -32,17 +32,20 @@ class Cells extends React.Component {
   }
 
   render() {
-    const { selectedDate, monthColors } = this.props
+    const { selectedDate, monthColors, holidays } = this.props
     const monthStart = startOfMonth(selectedDate)
     const rows = []
     let day = startOfWeek(monthStart)
     let days = []
-    const today=new Date()
+    const today = new Date()
     while (day <= endOfWeek(endOfMonth(monthStart))) {
       for (let i = 0; i < 7; i++) {
-        const dayColors = this.state.fetching ? [] : (monthColors[format(day, 'D')] || [])
+        const dayColors = this.state.fetching
+            ? []
+            : (monthColors[format(day, 'D')] || [])
         days.push(
           <CellDay key={i} day={day}
+                holiday={holidays[format(day, 'YYYY/M/D')]}
                 colors={dayColors}
                 today={today}
                 monthStart={monthStart}
@@ -64,6 +67,7 @@ const mapStateToProps = store => {
     mode: store.mode,
     selectedDate: store.selectedDate,
     monthColors: store.monthColors,
+    holidays: store.holidays,
     fetching: store.fetchingBubbles || store.fetchingReminders
   }
 }

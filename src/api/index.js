@@ -1,4 +1,5 @@
 import {format, isSameHour, isSameMinute} from 'date-fns'
+import {holidays} from './holidays'
 
 // This is a fake in-memory implementation of something
 // that would be implemented by calling a REST server.
@@ -99,7 +100,7 @@ export const updateReminder = async (date, reminder) =>
   })
 
 export const deleteReminder = date =>
-  delay(500).then(() => {
+  delay(200).then(() => {
     const reminders = monthlyReminders(date)
     const day = dayFmt(date)
     if(day in reminders) {
@@ -147,3 +148,8 @@ export const saveApp = storage => {
     console.log(err)
   }
 }
+
+export const fetchHolidays = () =>
+  delay(500).then(() => {
+    return holidays
+  })

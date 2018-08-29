@@ -105,7 +105,7 @@ class ReminderForm extends React.Component {
               onClick={this.pickColor}/>
         <div>
           <input onChange={this.onChange}
-              maxlength="30"
+              maxLength="30"
               value={selectedValue}
               ref={node => this.inputNode = node}/>
         </div>

@@ -1,7 +1,6 @@
-import dateFns from 'date-fns'
+import dateFns, {isSameMonth} from 'date-fns'
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-// import {withRouter} from 'react-router'
 import * as actions from '../../actions'
 import Calendar from '../Calendar'
 import Reminders from '../Reminders'
@@ -37,13 +36,14 @@ class Dashboard extends Component {
     if(day) {
       this.props.loadDayDate(new Date(year, month, day))
     } else {
-      this.props.loadMonthDate(year, month)
+      this.props.loadMonthDate(new Date(year, month))
     }
   }
 
   componentDidUpdate() {
     this.validateParams()
-    const { mode, selectedDate, loadMonthDate, loadDayDate } = this.props
+    const { mode, selectedDate,
+      loadMonthDate, loadDayDate } = this.props
     const { year, month, day } = this.props.match.params
 
     if(selectedDate && year) {
@@ -53,8 +53,8 @@ class Dashboard extends Component {
           loadDayDate(date)
         }
       } else {
-        if(mode !== 'month' || !dateFns.isSameMonth(selectedDate, new Date(year, month-1))) {
-          loadMonthDate(year, month)
+        if(mode !== 'month' || !isSameMonth(selectedDate, new Date(year, month-1))) {
+          loadMonthDate(new Date(year, month-1))
         }
       }
     } else if(selectedDate && !year) {

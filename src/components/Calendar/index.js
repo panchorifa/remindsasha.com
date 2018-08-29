@@ -8,9 +8,9 @@ import './Calendar.scss'
 
 class Calendar extends Component {
   componentDidMount() {
-    const {loadApp} = this.props
-    loadApp(localStorage)
+    this.props.loadApp(localStorage)
   }
+
   render() {
     return (
       <div className="calendar">
@@ -22,9 +22,4 @@ class Calendar extends Component {
   }
 }
 
-const mapStateToProps = store => {
-  return {
-
-  }
-}
-export default connect(mapStateToProps, actions)(Calendar)
+export default connect(() => {}, actions)(Calendar)

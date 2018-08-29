@@ -1,16 +1,11 @@
 .reminder {
   display: flex;
   flex-direction: column;
-  // background-color: red;//var(--bg-color);
   border: 1px solid var(--border-color);
-  // border: 1px solid red;
-  // background-color: red;
   margin-bottom: 1em;
   border-radius: .25em;
   height: 4em;
   position: relative;
-  // overflow-y: h;
-  // z-index: 0;
   &:hover {
     cursor: pointer
   }

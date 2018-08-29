@@ -1,45 +1,3 @@
-import dateFns from 'date-fns'
-
-const isBetween = (min, max, value) => {
-  return value > min && value < max
-}
-
-const loadYear = (year, month) => {
-  if(year && isBetween(1969, 2100, parseInt(year, 10))) {
-    return year
-  }
-  return null
-}
-
-const loadMonth = (year, month) => {
-  if(year && isBetween(1969, 2100, parseInt(year, 10)) &&
-     month && isBetween(0, 13, parseInt(month, 10))) {
-    return month-1
-  }
-  return -1
-}
-
-const loadDay = (year, month, day) => {
-  if(day && year && isBetween(1969, 2100, year) &&
-     month && isBetween(0, 13, month) &&
-     isBetween(1, dateFns.getDaysInMonth(new Date(year, month)), day)) {
-    return day
-  }
-  return null
-}
-
-const loadDate = (year, month, day=null) => {
-  const today = new Date()
-  const y = loadYear(year) || dateFns.getYear(today)
-  let m = loadMonth(year, month)
-  if(m === null) {
-    m = dateFns.getMonth(today)
-  }
-  const d = day ? loadDay(day) : today.getDate()
-  const x = new Date(y, m, d)
-  return x
-}
-
 const calendar = (state = {
     name: 'Sasha',
     selectedDate: null,
@@ -47,7 +5,9 @@ const calendar = (state = {
     view: 'list', // list/form/update
     fetchingReminders: false,
     fetchingBubbles: false,
+    fetchingHolidays: false,
     reminders: [],
+    holidays: {},
     reminder: null,
     monthColors: {}
   }, action) => {
@@ -55,13 +15,15 @@ const calendar = (state = {
     case 'LOAD_MONTH':
       return {
         ...state,
-        selectedDate: loadDate(action.year, action.month),
+        // selectedDate: loadDate(action.year, action.month),
+        selectedDate: action.date,
         mode: 'month',
         view: 'list'
       }
     case 'LOAD_DAY':
       return {
         ...state,
+        // selectedDate: action.date,
         selectedDate: action.date,
         mode: 'day',
         view: 'list'
@@ -88,6 +50,17 @@ const calendar = (state = {
       return {
         ...state,
         fetchingBubbles: true
+      }
+    case 'FETCHING_HOLIDAYS':
+      return {
+        ...state,
+        fetchingHolidays: true
+      }
+    case 'FETCH_HOLIDAYS_SUCCESS':
+      return {
+        ...state,
+        holidays: action.response,
+        fetchingHolidays: false
       }
     case 'FETCH_REMINDERS_SUCCESS':
       return {

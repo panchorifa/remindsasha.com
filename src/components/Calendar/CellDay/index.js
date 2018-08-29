@@ -7,7 +7,8 @@ import './CellDay.scss'
 class CellDay extends Component {
 
   render() {
-      const {mode, day, today, monthStart, selectedDate, selectDay, colors} = this.props
+      const {mode, day, today, monthStart,
+        holiday, selectedDate, selectDay, colors} = this.props
       const cloneDay = day
       const formattedDate = format(day, 'D')
       const sameDay = isSameDay(day, today)
@@ -19,6 +20,8 @@ class CellDay extends Component {
         <div key={idx} className="bubble"
           style={{backgroundColor: color, opacity: 1}}></div>
       )
+      const holidayTitle = holiday ? holiday.title : ''
+
       return   (
         <div
           className={`col cell ${clazz}`}
@@ -26,6 +29,10 @@ class CellDay extends Component {
           onClick={() => selectDay(parse(cloneDay))}
         >
           <span className={sameDay ? 'today' : 'number'}>{formattedDate}</span>
+          <span className={holiday ? 'holiday' : 'none'}>
+            {holidayTitle}
+          </span>
+
           <span className='bg'>{formattedDate}</span>
           <div className="bubbles">
             {bubbles}

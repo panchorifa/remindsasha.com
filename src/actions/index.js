@@ -1,7 +1,7 @@
 import * as api from '../api'
 
-export const loadMonthDate = (year, month) => dispatch =>
-  dispatch({type: 'LOAD_MONTH', year: year, month: month})
+export const loadMonthDate = date => dispatch =>
+  dispatch({type: 'LOAD_MONTH', date: date})
 
 export const loadDayDate = date => dispatch =>
   dispatch({type: 'LOAD_DAY', date: date})
@@ -30,6 +30,13 @@ export const fetchMonthBubbles = date => dispatch => {
     })
 }
 
+export const fetchHolidays = () => dispatch => {
+  return api.fetchHolidays().then(
+    response => {
+      dispatch({type: 'FETCH_HOLIDAYS_SUCCESS', response: response})
+    })
+}
+
 export const addReminder = reminder => dispatch =>
   api.addReminder(reminder)
     .then(response => {
@@ -48,8 +55,13 @@ export const updateReminder = (date, reminder) => (dispatch, getState) =>
       dispatch({type: 'UPDATE_REMINDER_SUCCESS'})
     })
 
-export const loadApp = storage => dispatch =>
+export const loadApp = storage => dispatch => {
   api.loadApp(storage)
+  api.fetchHolidays().then(
+    response => {
+      dispatch({type: 'FETCH_HOLIDAYS_SUCCESS', response: response})
+    })
+}
 
 export const saveApp = storage => dispatch =>
   api.saveApp(storage)

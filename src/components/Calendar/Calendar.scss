@@ -3,7 +3,7 @@
   position: relative;
   width: 100%;
   background: var(--neutral-color);
-  border: 1px solid var(--border-color);
+  border: 1px solid #ccc;//var(--border-color);
   border-top: none;
   user-select: none;
   .cal-header {
@@ -73,7 +73,7 @@
     }
 
     .row {
-      border-bottom: 1px solid var(--border-color);
+      border-bottom: 1px solid #ccc;//var(--border-color);
     }
 
     .row:last-child {

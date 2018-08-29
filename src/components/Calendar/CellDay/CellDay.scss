@@ -1,12 +1,11 @@
 .cell {
   position: relative;
   height: 5em;
-  border-right: 1px solid var(--border-color);
+  border-right: 1px solid #ccc;
   overflow: hidden;
   cursor: pointer;
   background: var(--neutral-color);
   transition: 0.25s ease-out;
-
   .today {
     position: absolute;
     font-size: 82.5%;
@@ -36,7 +35,7 @@
     opacity: 0;
     font-size: 7em;
     position: absolute;
-    bottom: -.1em;
+    bottom: -.175em;
     right: -.05em;
     transition: .25s ease-out;
     letter-spacing: -.07em;
@@ -63,9 +62,23 @@
       border-radius: 1em;
     }
   }
+  .holiday {
+    position: absolute;
+    bottom: .5em;
+    right: .5em;
+    color: #aaa;
+    font-size: .5em;
+    margin-top: 4em;
+  }
+  .none {
+    display: none;
+  }
 }
 
 .disabled {
+  .holiday {
+    display: none;
+  }
   .bubbles {
     display: none;
   }

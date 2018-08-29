@@ -67,4 +67,9 @@ describe('api', () => {
     const bubbles = await api.fetchBubbles(date)
     expect(bubbles).toMatchSnapshot()
   })
+
+  test('get holidays', async () => {
+    const holidays = await api.fetchHolidays()
+    expect(holidays).toMatchSnapshot()
+  })
 })

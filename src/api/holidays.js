@@ -1,0 +1,22 @@
+export const holidays = {
+    '2018/1/1':  { title: "New Year's Day" },
+   '2018/1/15': { title: "Martin Luther King, Jr. Day" },
+   '2018/2/19': { title: "George Washington's Birthday" },
+   '2018/5/29': { title: "Memorial Day" },
+    '2018/7/4': { title: "Indepence Day" },
+    '2018/9/3': { title: "Labor Day" },
+   '2018/10/8': { title: "Columbus Day" },
+  '2018/11/12': { title: "Veterans Day" },
+  '2018/11/22': { title: "Thanksgiving Day" },
+  '2018/12/25': { title: "Christmas Day" },
+    '2019/1/1': { title: "New Year's Day" },
+   '2019/1/21': { title: "Martin Luther King, Jr. Day" },
+   '2019/2/18': { title: "George Washington's Birthday" },
+   '2019/5/27': { title: "Memorial Day" },
+    '2019/7/4': { title: "Indepence Day" },
+    '2019/9/2': { title: "Labor Day" },
+  '2019/10/14': { title: "Columbus Day" },
+  '2019/11/11': { title: "Veterans Day" },
+  '2019/11/28': { title: "Thanksgiving Day" },
+  '2019/12/25': { title: "Christmas Day" }
+}
