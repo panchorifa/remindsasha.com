@@ -8,7 +8,7 @@
   position: relative;
 
   .icon {
-    color: #fff;
+    color: var(--sec-color);
     position: absolute;
     top: .3em;
     left: .5em;
@@ -32,10 +32,10 @@
       text-decoration: none;
       opacity: .9;
       letter-spacing: 3px;
-      color: var(--sec-color);
+      color: #fff;
       &:hover {
         opacity: .8;
-      }      
+      }
     }
     span {
 
@@ -43,15 +43,15 @@
     }
   }
 
-  .btn {
-    margin: 0;
-    float: right;
-    background-color: var(--sec-color);
-    color: #fff;
-    padding: .25em 1em;
-    text-decoration: none;
-    font-size: 1em;
-    margin: .5em 1em;
-    border-radius: .2em;
-  }
+  // .btn {
+  //   margin: 0;
+  //   float: right;
+  //   background-color: var(--sec-color);
+  //   color: #fff;
+  //   padding: .25em 1em;
+  //   text-decoration: none;
+  //   font-size: 1em;
+  //   margin: .5em 1em;
+  //   border-radius: .2em;
+  // }
 }
