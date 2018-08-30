@@ -1,14 +1,13 @@
 .reminder-form {
-  border: 2px solid var(--main-color);
-  border-top: 3em solid var(--main-color);
   border-radius: .25em;
   padding: 1em;
   position: relative;
-
+  margin-top: -1.15em;
+  background-color: #f7f7f7;
   .times {
     position:absolute;
     right: .5em;
-    top: -1.5em;
+    top: -1.55em;
     color: #fff;
     cursor: pointer;
   }
@@ -24,7 +23,7 @@
     padding: .25em;
     outline-width: 0;
     color: #888;
-    margin: 0 0 1em 0;
+    margin: .5em 0 1em 0;
   }
   .btn {
     background-color: var(--sec-color);
@@ -36,6 +35,7 @@
     text-align: center;
     padding: .4em;
     cursor: pointer;
+    width: 100%;
     .icon {
       margin-top: -.2em;
       margin-right: .5em;
@@ -48,5 +48,14 @@
     font-weight: bold;
     color: red;
     margin-top: -1em;
+  }
+  .repeats {
+    display: flex;
+    .col {
+      display: flex;
+      label {
+        margin: .5em 0 0 -5.5em;
+      }
+    }
   }
 }

@@ -10,7 +10,7 @@ class ColorPicker extends React.Component {
         onClick={() => this.props.onClick(color)}
         style={{
           // border: selectedColor === color ? '6px solid #888' : '6px solid #fff',
-          // opacity: selectedColor === color ? 1 : .1,
+          opacity: selectedColor === color ? 1 : .3,
           backgroundColor: color}}>
             <span
               style={{display: selectedColor === color ? 'block' : 'none'}}

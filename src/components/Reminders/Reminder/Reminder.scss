@@ -6,9 +6,6 @@
   border-radius: .25em;
   height: 4em;
   position: relative;
-  &:hover {
-    cursor: pointer
-  }
   .warning {
     color: #fff;
     height: 4em;
@@ -41,9 +38,9 @@
   .main {
     display: flex;
     flex-direction: column;
-    // border: 1px solid blue;
     position: relative;
     background-color: #f7f7f7;
+
     .actions {
       position: absolute;
       top: .3em;
@@ -53,8 +50,7 @@
         margin-left: .25em;
         width: 1em;
         height: 2em;
-        color: #222;
-        opacity: .2;
+        visibility: hidden;
         &:hover {
           opacity: 1;
         }
@@ -92,4 +88,20 @@
       }
     }
   }
+
+  &:hover {
+    cursor: pointer;
+    .main {
+      .actions {
+        a {
+          visibility: visible;
+          opacity: .3;
+          &:hover {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+
 }

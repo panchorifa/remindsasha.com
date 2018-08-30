@@ -4,15 +4,13 @@
   background-color: #fff;
 
   .main-calendar {
-    // min-width: 35em;
-    // max-width: 35em;
+    margin-top: 3.3em;
     flex-grow: 1;
   }
 
   .main-reminders {
     flex-grow: 0;
     background-color: #fff;
-    // border-right: 2px solid var(--border-color);
     padding: 1em 1.5em 0 1.5em;
     width: 35em;
     min-width: 35em;

@@ -9,7 +9,8 @@ const calendar = (state = {
     reminders: [],
     holidays: {},
     reminder: null,
-    monthColors: {}
+    monthColors: {},
+    color: 'black'
   }, action) => {
   switch (action.type) {
     case 'LOAD_MONTH':
@@ -33,11 +34,17 @@ const calendar = (state = {
         ...state,
         name: action.name
       }
+    case 'CHANGE_COLOR':
+      return {
+        ...state,
+        color: action.color
+      }
     case 'SET_VIEW':
       return {
         ...state,
         view: action.view,
-        reminder: action.reminder
+        reminder: action.reminder,
+        color: action.reminder ?  action.reminder.color : 'black'
       }
     case 'FETCHING_REMINDERS':
       return {

@@ -107,11 +107,18 @@ class Reminders extends Component {
         </div>
         <div style={{display: (fetching || view !== 'list') ? 'none' : 'flex'}}
              className="list">
-          <div className="msg" dangerouslySetInnerHTML={msg}/>
+          <div className="header">
+            <div className="msg" dangerouslySetInnerHTML={msg}/>
+            <div style={{display: (pastDate || mode === 'month') ? 'none' : 'block'}}
+                onClick={this.newReminder}
+                className="add-alarm material-icons md-24">add_alarm
+                <span class="tooltiptext">Add Reminder</span>
+            </div>
+          </div>
+
+
           <div className="items">
             {reminderItems}
-            <div style={{display: (pastDate || mode === 'month') ? 'none' : 'block'}}
-              onClick={this.newReminder} className="newreminderbtn">New Reminder</div>
           </div>
         </div>
         <div style={{display: view === 'form' ? 'flex' : 'none'}}

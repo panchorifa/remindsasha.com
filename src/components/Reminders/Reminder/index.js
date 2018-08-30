@@ -49,8 +49,16 @@ class Reminder extends React.Component {
           <div className="color" style={{backgroundColor: color}}/>
           <div className="content">
             <div className="actions">
+              <style jsx>{`
+                .actions:hover {
+                  color: ${color};
+                }
+              `}</style>
               <a onClick={this.deleteWarning}
-                className="material-icons md-24">delete</a>
+                style={{color: color}}
+                className="material-icons md-24">delete
+                <span class="tooltiptext">Delete Reminder</span>
+              </a>
             </div>
             <div className="title">
               <div className="icon" style={{color: color}}>access_alarm</div>

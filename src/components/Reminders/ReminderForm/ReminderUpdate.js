@@ -3,6 +3,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import TimePicker from './TimePicker'
 import ColorPicker from './ColorPicker'
+import Repeats from './Repeats'
 import colors from './Colors'
 import * as actions from '../../../actions'
 import './ReminderForm.scss'
@@ -11,7 +12,6 @@ import './ReminderForm.scss'
 class ReminderForm extends React.Component {
   state = {
     valid: false,
-    color: colors[0],
     date: new Date(),
     text: '',
     updated: false,
@@ -24,8 +24,8 @@ class ReminderForm extends React.Component {
   submit = (e) => {
     e.preventDefault()
     if(this.state.valid && this.isValid()) {
-      const {color, date, updatedTime, updatedColor} = this.state
-      const {saveApp, selectedDate, updateReminder, reminder,
+      const {date, updatedTime, updatedColor} = this.state
+      const {color, saveApp, selectedDate, updateReminder, reminder,
         fetchReminders, fetchMonthBubbles} = this.props
       let xdate = reminder.date
       if(updatedTime) {
@@ -63,7 +63,8 @@ class ReminderForm extends React.Component {
   }
 
   pickColor = (color) => {
-    this.setState({color: color, updatedColor: true, valid: this.isValid()})
+    this.props.changeColor(color)
+    this.setState({updatedColor: true, valid: this.isValid()})
   }
 
   close = () => {
@@ -83,13 +84,18 @@ class ReminderForm extends React.Component {
   }
 
   render() {
-    const {reminder} = this.props
-    const {error, text, valid, color, date, updatedText, updatedColor, updatedTime} = this.state
+    const {color, reminder} = this.props
+    const {error, text, valid, date, updatedText, updatedColor, updatedTime} = this.state
     const selectedValue = updatedText || !reminder ?  text : reminder.text
     const selectedColor = updatedColor || !reminder ? color : reminder.color
     const xdate = updatedTime || !reminder ? date : reminder.date
     return (
-      <form className='reminder-form' onSubmit={this.submit.bind(this)}>
+      <form className='reminder-form' onSubmit={this.submit.bind(this)}
+            style={{
+              border: `2px solid ${color}`,
+              borderTop: `3.4em solid ${color}`
+            }}>
+
         <span onClick={this.close} className="times material-icons md-24">close</span>
         <h3>Update Reminder</h3>
         <TimePicker date={xdate}
@@ -105,7 +111,11 @@ class ReminderForm extends React.Component {
               ref={node => this.inputNode = node}/>
         </div>
         <div onClick={this.submit} className="btn"
-              style={{opacity: valid ? 1 : .3, cursor: valid ? 'pointer' : 'not-allowed'}}>
+              style={{opacity: valid ? 1 : .3,
+                backgroundColor: color,
+                cursor: valid ? 'pointer' : 'not-allowed'}}>
+
+
           <span className="icon">access_alarm</span>Update Reminder
         </div>
         <div className="error" style={{display: error ? 'block' : 'none'}}>{error}</div>
@@ -118,7 +128,8 @@ const mapStateToProps = store => {
   return {
     selectedDate: store.selectedDate,
     view: store.view,
-    reminder: store.reminder
+    reminder: store.reminder,
+    color: store.color
   }
 }
 

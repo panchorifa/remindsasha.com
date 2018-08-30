@@ -3,6 +3,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import TimePicker from './TimePicker'
 import ColorPicker from './ColorPicker'
+import Repeats from './Repeats'
 import colors from './Colors'
 import * as actions from '../../../actions'
 import './ReminderForm.scss'
@@ -11,7 +12,6 @@ class ReminderForm extends React.Component {
   state = {
     valid: false,
     date: null,
-    color: colors[0],
     error: null,
     text: ''
   }
@@ -19,9 +19,9 @@ class ReminderForm extends React.Component {
   submit = (e) => {
     e.preventDefault()
     if(this.isValid()) {
-      const {saveApp, selectedDate,
+      const {saveApp, selectedDate, color,
         addReminder, fetchReminders, fetchMonthBubbles} = this.props
-      const {color, date, text} = this.state
+      const {date, text} = this.state
       let xdate = selectedDate
       xdate=setHours(xdate, date ? getHours(date) : 0)
       xdate=setMinutes(xdate, date ? getMinutes(date) : 0)
@@ -51,7 +51,7 @@ class ReminderForm extends React.Component {
   }
 
   pickColor = (color) => {
-    this.setState({color: color})
+    this.props.changeColor(color)
   }
 
   close = () => {
@@ -70,10 +70,15 @@ class ReminderForm extends React.Component {
   }
 
   render() {
-    const {error, text, valid, color, date} = this.state
+    const {error, text, valid, date} = this.state
+    const {color} = this.props
     let xdate = date || new Date(2018,1,1,0,0)
     return (
-      <form className='reminder-form' onSubmit={this.submit.bind(this)}>
+      <form className='reminder-form' onSubmit={this.submit.bind(this)}
+          style={{
+            border: `2px solid ${color}`,
+            borderTop: `3.4em solid ${color}`
+          }}>
         <span onClick={this.close} className="times material-icons md-24">close</span>
         <h3>Add Reminder</h3>
         <TimePicker date={xdate}
@@ -87,7 +92,9 @@ class ReminderForm extends React.Component {
               maxLength="30"/>
         </div>
         <div onClick={this.submit} className="btn"
-              style={{opacity: valid ? 1 : .3, cursor: valid ? 'pointer' : 'not-allowed'}}>
+              style={{opacity: valid ? 1 : .3,
+                backgroundColor: color,
+                cursor: valid ? 'pointer' : 'not-allowed'}}>
           <span className="icon">access_alarm</span>Add Reminder
         </div>
         <div className="error" style={{display: error ? 'block' : 'none'}}>{error}</div>
@@ -98,7 +105,8 @@ class ReminderForm extends React.Component {
 
 const mapStateToProps = store => {
   return {
-    selectedDate: store.selectedDate
+    selectedDate: store.selectedDate,
+    color: store.color
   }
 }
 
