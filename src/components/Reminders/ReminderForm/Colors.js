@@ -1,5 +1,4 @@
 const colors = [
-  'black',
   '#00a8ff',
   '#9c88ff',
   '#fbc531',
@@ -13,7 +12,6 @@ const colors = [
   '#72c117',
   '#542280',
   '#D61481',
-  '#888',
-  'blue']
+  '#666']
 
 export default colors

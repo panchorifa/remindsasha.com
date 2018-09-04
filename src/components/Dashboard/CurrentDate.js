@@ -1,18 +1,19 @@
-import dateFns from 'date-fns'
-import React from 'react'
-import {connect} from 'react-redux'
-import { withRouter } from 'react-router'
-import * as actions from '../../actions'
+import dateFns from "date-fns"
+import React from "react"
+import {connect} from "react-redux"
+import { withRouter } from "react-router"
+import * as actions from "../../actions"
+import "./CurrentDate.scss"
 
 class CurrentDate extends React.Component {
   selectDay() {
-    this.props.setView('list')
+    this.props.setView("list")
   }
-  
+
   render() {
     const {selectedDate} = this.props
     const {year, day} = this.props.match.params
-    const dateFmt = !year || day ? 'dddd, MMMM D, YYYY' : 'MMMM YYYY'
+    const dateFmt = !year || day ? "dddd, MMMM D, YYYY" : "MMMM YYYY"
     const date = dateFns.format(selectedDate, dateFmt)
 
     return (

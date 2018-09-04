@@ -45,9 +45,9 @@ class Reminder extends React.Component {
     return (
       <div className="reminder">
         <div className="main" onClick={this.edit}
-              style={{display: deleteme ? 'none' : 'block'}}>
-          <div className="color" style={{backgroundColor: color}}/>
-          <div className="content">
+              style={{display: deleteme ? 'none' : 'block',
+                borderLeft: `2em solid ${color}`}}>
+          <div className="reminder-content">
             <div className="actions">
               <style jsx>{`
                 .actions:hover {

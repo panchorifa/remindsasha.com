@@ -93,7 +93,7 @@ class ReminderForm extends React.Component {
       <form className='reminder-form' onSubmit={this.submit.bind(this)}
             style={{
               border: `2px solid ${color}`,
-              borderTop: `3.4em solid ${color}`
+              borderTop: `2.4em solid ${color}`
             }}>
 
         <span onClick={this.close} className="times material-icons md-24">close</span>
@@ -104,6 +104,7 @@ class ReminderForm extends React.Component {
         <ColorPicker colors={colors}
               selectedColor={selectedColor}
               onClick={this.pickColor}/>
+        <Repeats/>
         <div>
           <input onChange={this.onChange}
               maxLength="30"

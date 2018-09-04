@@ -1,3 +1,5 @@
+const DEFAULT_COLOR = '#00a8ff'
+
 const calendar = (state = {
     name: 'Sasha',
     selectedDate: null,
@@ -10,7 +12,7 @@ const calendar = (state = {
     holidays: {},
     reminder: null,
     monthColors: {},
-    color: 'black'
+    color: DEFAULT_COLOR
   }, action) => {
   switch (action.type) {
     case 'LOAD_MONTH':
@@ -44,7 +46,7 @@ const calendar = (state = {
         ...state,
         view: action.view,
         reminder: action.reminder,
-        color: action.reminder ?  action.reminder.color : 'black'
+        color: action.reminder ?  action.reminder.color : DEFAULT_COLOR
       }
     case 'FETCHING_REMINDERS':
       return {

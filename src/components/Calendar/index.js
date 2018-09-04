@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
-import {connect} from 'react-redux'
-import Header from './Header'
-import Days from './Days'
-import Cells from './Cells'
-import * as actions from '../../actions'
-import './Calendar.scss'
+import React, { Component } from "react"
+import {connect} from "react-redux"
+import Header from "./Header"
+import Days from "./Days"
+import Cells from "./Cells"
+import * as actions from "../../actions"
+import "./Calendar.scss"
 
 class Calendar extends Component {
   componentDidMount() {
@@ -22,8 +22,4 @@ class Calendar extends Component {
   }
 }
 
-const mapStateToProps = store => {
-  return {
-  }
-}
-export default connect(mapStateToProps, actions)(Calendar)
+export default connect(() => {}, actions)(Calendar)

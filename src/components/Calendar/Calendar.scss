@@ -3,17 +3,18 @@
   position: relative;
   width: 100%;
   background: var(--neutral-color);
-  border: 1px solid #ccc;//var(--border-color);
+  // border: 1px solid var(--main-color);
   border-right: none;
   user-select: none;
   .cal-header {
     font-weight: 700;
     font-size: .85em;
-    padding: 1.25em 0;
+    padding: 1.25em;
     text-align: center;
     border-bottom: 1px solid var(--border-color);
     background-color: #fff;
     color: #888;
+
     height: 4em;
     display: flex;
     a {
@@ -35,9 +36,11 @@
       text-align: center;
       a {
         font-size: 1.25em;
-        color: #888;
+        color: var(--main-color);
+        opacity: .9;
         &:hover {
           color: var(--main-color);
+          opacity: 1;
         }
       }
     }
@@ -58,12 +61,18 @@
     font-weight: 400;
     color: var(--text-color-light);
     font-size: 70%;
-    border-bottom: 1px solid var(--border-color);
+    // border-bottom: 1px solid var(--border-color);
   }
 
   .day {
-    border: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
     padding: .5em 0;
+    background-color: var(--main-color);
+    color: #fff;
+    &:last-child {
+      border-right: none;
+    }
   }
 
   .body {
@@ -124,9 +133,7 @@
 .col-center {
   justify-content: center;
   text-align: center;
-  border: 1px solid red;
 }
 
 .col-end {
-  border: 1px solid red;
 }

@@ -2,7 +2,6 @@ import dateFns from 'date-fns'
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import { withRouter } from 'react-router'
-import CurrentDate from './CurrentDate'
 import Reminder from './Reminder'
 import ReminderForm from './ReminderForm'
 import ReminderUpdate from './ReminderForm/ReminderUpdate'
@@ -100,8 +99,6 @@ class Reminders extends Component {
     const pastDate = !sameDay && dateFns.isPast(selectedDate)
     return (
       <div className="dayreminders">
-        <CurrentDate/>
-        <hr/>
         <div className="loading" style={{display: fetching ?  'flex' : 'none'}}>
           <span className="material-icons md-24 fa-spin">data_usage</span>Loading...
         </div>

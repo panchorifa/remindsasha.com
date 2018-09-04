@@ -1,0 +1,12 @@
+.current-date {
+  font-weight: bold;
+  cursor: pointer;
+  color: var(--main-color);
+  opacity: .9;
+  padding: 1em;
+  line-height: 1em;
+  border-bottom: 2px solid var(--main-color);
+  &:hover {
+    opacity: 1;
+  }
+}

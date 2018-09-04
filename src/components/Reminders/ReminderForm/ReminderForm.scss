@@ -2,19 +2,19 @@
   border-radius: .25em;
   padding: 1em;
   position: relative;
-  margin-top: -1.15em;
-  background-color: #f7f7f7;
+  margin-top: 1em;
+  background-color: #fff;
   .times {
     position:absolute;
-    right: .5em;
-    top: -1.55em;
+    right: .25em;
+    top: -1.3em;
     color: #fff;
     cursor: pointer;
   }
   h3 {
     position:absolute;
-    left: 1em;
-    top: -3em;
+    left: .5em;
+    top: -2.75em;
     color: #fff;
   }
   input {
@@ -33,7 +33,7 @@
     border-radius: .25em;
     font-size: 1.4em;
     text-align: center;
-    padding: .4em;
+    padding: .2em;
     cursor: pointer;
     width: 100%;
     .icon {
@@ -41,7 +41,7 @@
       margin-right: .5em;
     }
     .disabled {
-      opacity: .3;
+      // opacity: .3;
     }
   }
   .error {

@@ -1,11 +1,53 @@
 .reminder {
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--border-color);
   margin-bottom: 1em;
-  border-radius: .25em;
   height: 4em;
   position: relative;
+  box-shadow: 0 10px 6px -6px #777;
+  .main {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background-color: #fff;
+    border-radius: .25em;
+    .actions {
+      position: absolute;
+      top: .3em;
+      right: .5em;
+      a {
+        cursor: pointer;
+        margin-left: .25em;
+        width: 1em;
+        height: 2em;
+        visibility: hidden;
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+    .reminder-content {
+      display: flex;
+      flex-direction: column;
+      padding: .5em 0 0 1em;
+      .title {
+        display: flex;
+        font-weight: bold;
+        color: var(--sec-color);
+        .icon {
+          margin: .25em .25em 0 0;
+          height: 1.2em;
+        }
+        .time {
+          padding-top: 0;
+        }
+      }
+      .text {
+        display: block;
+      }
+    }
+  }
+
   .warning {
     color: #fff;
     height: 4em;
@@ -35,59 +77,6 @@
       }
     }
   }
-  .main {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    background-color: #f7f7f7;
-
-    .actions {
-      position: absolute;
-      top: .3em;
-      right: .5em;
-      a {
-        cursor: pointer;
-        margin-left: .25em;
-        width: 1em;
-        height: 2em;
-        visibility: hidden;
-        &:hover {
-          opacity: 1;
-        }
-      }
-    }
-    .color {
-      position: absolute;
-      height: 4em;
-      width: 2em;
-      border-top-left-radius: .25em;
-      border-bottom-left-radius: .25em;
-      background-color: var(--sec-color);
-    }
-    .content {
-      display: flex;
-      flex-direction: column;
-      // border: 1px solid red;
-      padding: .5em 0 0 2.5em ;
-      .title {
-        display: flex;
-        font-weight: bold;
-        color: var(--sec-color);
-        .icon {
-          margin: .25em .25em 0 0;
-          height: 1.2em;
-        }
-        .time {
-          padding-top: 0;
-        }
-      }
-      .text {
-        display: block;
-        // border: 1px solid red;
-        // margin: 1em;
-      }
-    }
-  }
 
   &:hover {
     cursor: pointer;
@@ -103,5 +92,4 @@
       }
     }
   }
-
 }

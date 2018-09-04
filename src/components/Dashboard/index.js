@@ -1,10 +1,11 @@
-import dateFns, {isSameMonth} from 'date-fns'
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import * as actions from '../../actions'
-import Calendar from '../Calendar'
-import Reminders from '../Reminders'
-import './Dashboard.scss'
+import dateFns, {isSameMonth} from "date-fns"
+import React, {Component} from "react"
+import {connect} from "react-redux"
+import * as actions from "../../actions"
+import CurrentDate from "./CurrentDate"
+import Calendar from "../Calendar"
+import Reminders from "../Reminders"
+import "./Dashboard.scss"
 
 class Dashboard extends Component {
 
@@ -28,7 +29,7 @@ class Dashboard extends Component {
         return true;
       }
     } catch(err){}
-    this.props.history.push('/')
+    this.props.history.push("/")
   }
 
   componentWillMount() {
@@ -53,13 +54,13 @@ class Dashboard extends Component {
           loadDayDate(date)
         }
       } else {
-        if(mode !== 'month' || !isSameMonth(selectedDate, new Date(year, month-1))) {
+        if(mode !== "month" || !isSameMonth(selectedDate, new Date(year, month-1))) {
           loadMonthDate(new Date(year, month-1))
         }
       }
     } else if(selectedDate && !year) {
       const today = new Date()
-      if(mode!=='day' || !dateFns.isSameDay(selectedDate, today)) {
+      if(mode!=="day" || !dateFns.isSameDay(selectedDate, today)) {
         loadDayDate(today)
       }
     }
@@ -67,12 +68,13 @@ class Dashboard extends Component {
 
   render() {
     return (
-      <div className="main">
-        <div className="main-reminders">
-          <Reminders/>
+      <div className="flex-col main">
+        <div>
+          <CurrentDate/>
         </div>
-        <div className="main-calendar">
-          <Calendar/>
+        <div className="flex-row">
+          <div className="main-reminders"><Reminders/></div>
+          <div className="main-calendar"><Calendar/></div>
         </div>
       </div>
     )

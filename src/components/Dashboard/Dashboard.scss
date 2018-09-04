@@ -1,16 +1,12 @@
 .main {
   flex-grow: 1;
-  display: flex;
-  background-color: #fff;
-
+  background-color: #f1f2f8;//f4f5f9;
   .main-calendar {
-    margin-top: 3.3em;
     flex-grow: 1;
   }
 
   .main-reminders {
     flex-grow: 0;
-    background-color: #fff;
     padding: 1em 1.5em 0 1.5em;
     width: 35em;
     min-width: 35em;

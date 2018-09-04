@@ -4,33 +4,22 @@
   display: flex;
   flex-direction: column;
   user-select: none;
-  .current-date {
-    font-weight: bold;
-    cursor: pointer;
-    color: var(--main-color);
-    opacity: .9;
-    padding: .55em 0 0 0;
-    line-height: 1em;
-    &:hover {
-      opacity: 1;
-    }
-  }
 
-  hr {
-    margin: .85em 0 1em 0;
-    border: 1px solid var(--main-color);
-  }
+  // hr {
+  //   margin: .85em 0 1em 0;
+  //   border: 1px solid var(--main-color);
+  // }
 
   .list {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
     .header {
-      background-color: #fff;
       color: #888;
       line-height: 1.8em;
       border-bottom: 1px solid var(--border-color);
       height: 2.2em;
+      background-color: transparent;
       .add-alarm {
         margin-right: .35em;
         color: var(--main-color);
